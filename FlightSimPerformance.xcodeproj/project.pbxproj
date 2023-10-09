@@ -19,6 +19,7 @@
 		DA3496C02AD47E1400D406C2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DA3496C22AD47E1500D406C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA3496C52AD47E1500D406C2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DA3496CC2AD47E9E00D406C2 /* PerformanceCalculator */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PerformanceCalculator; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +36,7 @@
 		DA3496B22AD47E1400D406C2 = {
 			isa = PBXGroup;
 			children = (
+				DA3496CC2AD47E9E00D406C2 /* PerformanceCalculator */,
 				DA3496BD2AD47E1400D406C2 /* FlightSimPerformance */,
 				DA3496BC2AD47E1400D406C2 /* Products */,
 			);
