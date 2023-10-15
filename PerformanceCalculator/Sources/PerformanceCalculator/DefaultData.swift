@@ -1,8 +1,8 @@
 import Foundation
 
 public struct DefaultData {
-    static public var passengerWeight = kgs(79.3) //Measurement(value: 175, unit: UnitMass.pounds)
-    static public var baggageWeight = kgs(24.7) //Measurement(value: 55, unit: UnitMass.pounds)
+    static public var passengerWeight = Measurement(value: 175, unit: UnitMass.pounds)
+    static public var baggageWeight = Measurement(value: 55, unit: UnitMass.pounds)
     
     static public var totalPassengerWeight: Measurement<UnitMass> {
         passengerWeight + baggageWeight

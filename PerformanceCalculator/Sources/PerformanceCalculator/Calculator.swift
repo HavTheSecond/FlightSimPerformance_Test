@@ -1,5 +1,6 @@
 import Foundation
 
+@Observable
 public class Calculator {
     public var aircraft: Aircraft
     public var useStandardEO = true
@@ -18,6 +19,15 @@ public class Calculator {
               requestedFlexType == .autoFlex else {return nil}
         
         return rwyMaxFlex
+    }
+    
+    public var v1DifferenceToVR: Measurement<UnitSpeed> {
+        let aw41 = aircraft.landPerformances[2].distSea.meterVal / 2
+        let remainingSpace = (departureRunway.length - requiredDistance).meterVal
+        let av42 = aw41 - remainingSpace
+        let aw42 = knts(av42 / -50)
+        
+        return min(aw42, knts(0))
     }
     
     public var runwayWetFlexAllowed: Bool {
@@ -300,6 +310,11 @@ public class Calculator {
         let necessarySubtraction = (departureRunwayCondition.description == "SNOW COMPACTED" && departureTemp > Measurement(value: -15, unit: .celsius)) ? UInt(1) : 0
         return departureRunwayCondition.rcc - necessarySubtraction
     }
+    
+    public var departureRunwayBrakingQuality: BrakingQuality {
+        calculateBrakingQuality(rcc: departureRunwayRCC)
+    }
+    
     public var departureRunway: (name: String, length: Measurement<UnitLength>) {
         guard departureAirport.runways.count > departureRunwayIndex else {
             return (name: "N/A", length: ft(0))
@@ -630,4 +645,25 @@ public enum CabinType {
 
 public enum RequestedFlexType {
     case thrustOAT, thrustFlex, autoFlex, derate
+}
+
+public enum BrakingQuality {
+    case brakingGood, brakingGoodToMedium, brakingMedium, brakingMediumToPoor, brakingPoor, brakingBelowPoor
+}
+
+private func calculateBrakingQuality(rcc: UInt) -> BrakingQuality {
+    switch rcc {
+        case 0:
+            return .brakingBelowPoor
+        case 1:
+            return .brakingPoor
+        case 2:
+            return .brakingMediumToPoor
+        case 3:
+            return .brakingMedium
+        case 4:
+            return .brakingGoodToMedium
+        default:
+            return .brakingGood
+    }
 }

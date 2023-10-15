@@ -4,6 +4,11 @@ import PerformanceCalculator
 final class PerformanceCalculatorTests: XCTestCase {
     let calculator = Calculator()
     
+    override class func setUp() {
+        DefaultData.passengerWeight = kgs(79.3)
+        DefaultData.baggageWeight = kgs(24.7)
+    }
+    
     func testDensityAltitude() {
         calculator.departureTemp = celsius(10)
         calculator.departureQNH = hps(1022)
@@ -237,12 +242,15 @@ final class PerformanceCalculatorTests: XCTestCase {
         XCTAssert(calculator.runwayWetFlexAllowed)
         XCTAssert(calculator.runwayContaminatedFlexAllowed)
         XCTAssertEqual(calculator.requiredDistance.meterVal.rounded(), 1710)
+        XCTAssertEqual(calculator.v1DifferenceToVR.kntValue.rounded(), 0)
         
         calculator.requestedFlexType = .autoFlex
         XCTAssertEqual(calculator.calculatedFlexTemp?.celsiusVal.rounded(.down), 52)
         XCTAssertEqual(calculator.requiredDistance.meterVal.rounded(), 2788)
+        XCTAssertEqual(calculator.v1DifferenceToVR.kntValue.rounded(), -16)
         calculator.requestedFlexType = .thrustFlex
         calculator.selectedFlexTemp = celsius(37)
         XCTAssertEqual(calculator.requiredDistance.meterVal.rounded(), 2111)
+        XCTAssertEqual(calculator.v1DifferenceToVR.kntValue.rounded(), -2)
     }
 }
