@@ -1,5 +1,5 @@
 import XCTest
-@testable import PerformanceCalculator
+import PerformanceCalculator
 
 final class PerformanceCalculatorTests: XCTestCase {
     let calculator = Calculator()
@@ -25,17 +25,30 @@ final class PerformanceCalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.departureCrossWind.value.rounded(), 5)
     }
     
+    func testRunwayCondition() {
+        calculator.departureRunwayCondition = .dry
+        XCTAssertEqual(calculator.departureRunwayRCC, 6)
+        calculator.departureRunwayCondition = .ice
+        XCTAssertEqual(calculator.departureRunwayRCC, 1)
+        calculator.departureRunwayCondition = .snowCompacted
+        calculator.departureTemp = celsius(-30)
+        XCTAssertEqual(calculator.departureRunwayRCC, 4)
+        calculator.departureTemp = celsius(7)
+        XCTAssertEqual(calculator.departureRunwayRCC, 3)
+    }
+    
     func testWeights() {
+        calculator.cabinType = .mixed
         DefaultData.passengerWeight = Measurement(value: 80, unit: UnitMass.kilograms)
         DefaultData.baggageWeight = Measurement(value: 24, unit: UnitMass.kilograms)
-        calculator.paxTotal = 100
+        calculator.selectedPaxTotal = 100
+        XCTAssertEqual(calculator.paxTotal, 100)
         calculator.cargoWeight = kgs(150)
         calculator.blockFuel = kgs(7000)
         calculator.tripFuel = kgs(4979)
         calculator.taxiOut = kgs(227)
         calculator.alternate = kgs(1001)
         calculator.finalReserve = kgs(193)
-        calculator.cabinType = .mixed
         
         XCTAssertEqual(calculator.actualOEW.kgsVal.rounded(), 42500)
         XCTAssertEqual(calculator.maxZFW.kgsVal.rounded(), 62500)
@@ -51,6 +64,7 @@ final class PerformanceCalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.destinationLandingWeight.kgsVal.rounded(), 54844)
         XCTAssertEqual(calculator.alternateLandingWeight.kgsVal.rounded(), 53843)
         XCTAssertEqual(calculator.minimumTOFuel.kgsVal.rounded(), 6773)
+        XCTAssertEqual(calculator.maxCargoWeight.kgsVal, 7035)
         
         XCTAssertEqual(calculator.paxFirstClass, 0)
         XCTAssertEqual(calculator.maxPaxFirstClass, 0)
@@ -75,6 +89,9 @@ final class PerformanceCalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.baggageWeightRear.kgsVal.rounded(), 1535)
         XCTAssertEqual(calculator.totalRearCargoWeight.kgsVal.rounded(), 1631)
         XCTAssertEqual(calculator.maxRearCargoWeight.kgsVal.rounded(), 6033)
+        
+        XCTAssertEqual(calculator.totalMainDeckCargoWeight, nil)
+        XCTAssertEqual(calculator.maxMainDeckCargoWeight, nil)
         
         XCTAssertEqual(calculator.payloadLoadPercentage.roundedToTenths(), 52.8)
         
@@ -107,5 +124,125 @@ final class PerformanceCalculatorTests: XCTestCase {
         XCTAssertEqual(centre.capacity.kgsVal.rounded(), 6622)
         XCTAssertEqual(centre.weight.kgsVal.rounded(), 0)
         XCTAssertEqual(centre.fillPercentage.roundedToTenths(), 0)
+        
+        calculator.selectedPaxTotal = 1000
+        XCTAssertEqual(calculator.paxTotal, 174)
+    }
+    
+    func testCargoConfigWeights() {
+        calculator.cabinType = .cargo
+        calculator.selectedPaxTotal = 0
+        calculator.cargoWeight = kgs(17589)
+        calculator.blockFuel = kgs(7000)
+        calculator.tripFuel = kgs(4979)
+        calculator.taxiOut = kgs(227)
+        calculator.alternate = kgs(1001)
+        calculator.finalReserve = kgs(193)
+        
+        XCTAssertEqual(calculator.actualOEW.kgsVal.rounded(), 42500)
+        XCTAssertEqual(calculator.maxZFW.kgsVal.rounded(), 62500)
+        XCTAssertEqual(calculator.zeroFuelWeight.kgsVal.rounded(), 60089)
+        XCTAssertEqual(calculator.maxRampWeight.kgsVal.rounded(), 79301)
+        XCTAssertEqual(calculator.rampWeight.kgsVal.rounded(), 67089)
+        XCTAssertEqual(calculator.maxPayloadWeight.kgsVal.rounded(), 20000)
+        XCTAssertEqual(calculator.payloadWeight.kgsVal.rounded(), 17589)
+        XCTAssertEqual(calculator.maxFuelWeight.kgsVal.rounded(), 19046)
+        XCTAssertEqual(calculator.maxTOW.kgsVal.rounded(), 79000)
+        XCTAssertEqual(calculator.tow.kgsVal.rounded(), 66862)
+        XCTAssertEqual(calculator.maxLandingWT.kgsVal.rounded(), 67400)
+        XCTAssertEqual(calculator.destinationLandingWeight.kgsVal.rounded(), 61883)
+        XCTAssertEqual(calculator.alternateLandingWeight.kgsVal.rounded(), 60882)
+        XCTAssertEqual(calculator.minimumTOFuel.kgsVal.rounded(), 6773)
+        XCTAssertEqual(calculator.maxCargoWeight.kgsVal, 20000)
+        
+        XCTAssertEqual(calculator.paxFirstClass, 0)
+        XCTAssertEqual(calculator.maxPaxFirstClass, 0)
+        XCTAssertEqual(calculator.paxWeightFirstClass, kgs(0))
+        XCTAssertEqual(calculator.paxBusiness,0)
+        XCTAssertEqual(calculator.maxPaxBusiness, 0)
+        XCTAssertEqual(calculator.paxWeightBusiness, kgs(0))
+        XCTAssertEqual(calculator.paxEconomy, 0)
+        XCTAssertEqual(calculator.maxPaxEconomy, 0)
+        XCTAssertEqual(calculator.paxWeightEconomy, kgs(0))
+        XCTAssertEqual(calculator.maxPaxTotal, 0)
+        XCTAssertEqual(calculator.paxWeightTotal, kgs(0))
+        
+        XCTAssertEqual(calculator.baggageWeightTotal.kgsVal, 0)
+        XCTAssertEqual(calculator.totalBaggageAndCargoWeight.kgsVal.rounded(), 17589)
+        XCTAssertEqual(calculator.maxBaggageAndCargoWeight.kgsVal.rounded(), 20000)
+        
+        XCTAssertEqual(calculator.baggageWeightFront.kgsVal.rounded(), 0)
+        XCTAssertEqual(calculator.totalFrontCargoWeight.kgsVal.rounded(), 2992)
+        XCTAssertEqual(calculator.maxFrontCargoWeight.kgsVal.rounded(), 3402)
+        
+        XCTAssertEqual(calculator.baggageWeightRear.kgsVal.rounded(), 0)
+        XCTAssertEqual(calculator.totalRearCargoWeight.kgsVal.rounded(), 5306)
+        XCTAssertEqual(calculator.maxRearCargoWeight.kgsVal.rounded(), 6033)
+        
+        XCTAssertEqual(calculator.totalMainDeckCargoWeight?.kgsVal.rounded(), 9291)
+        XCTAssertEqual(calculator.maxMainDeckCargoWeight?.kgsVal.rounded(), 10565)
+        
+        XCTAssertEqual(calculator.payloadLoadPercentage.roundedToTenths(), 87.9)
+    }
+    
+    func testFlexNotPermitted() {
+        calculator.departureRunwayIndex = 1
+        calculator.departureTemp = celsius(17)
+        calculator.departureQNH = hps(1022)
+        calculator.departureWindDir = degs(250)
+        calculator.departureWindSpd = knts(10)
+        calculator.departureRunwayCondition = .dry
+        calculator.takeoffFlapsIndex = 1
+        calculator.antiIce = true
+        calculator.packsOn = true
+        calculator.departureRunwayLengthSubtraction = meters(1000)
+        calculator.cabinType = .mixed
+        calculator.selectedPaxTotal = 174
+        calculator.cargoWeight = kgs(0)
+        calculator.blockFuel = kgs(7000)
+        calculator.taxiOut = kgs(227)
+        calculator.useStandardEO = true
+        calculator.revisedOEW = nil
+        calculator.requestedFlexType = .thrustOAT
+       
+        XCTAssertEqual(calculator.requiredDistance.meterVal.rounded(), 1959)
+        XCTAssertFalse(calculator.flexPermitted)
+        XCTAssertFalse(calculator.runwayLongEnoughForFlex)
+        XCTAssert(calculator.runwayWetFlexAllowed)
+        XCTAssert(calculator.runwayContaminatedFlexAllowed)
+    }
+    
+    func testFlexPermitted() {
+        calculator.departureRunwayIndex = 1
+        calculator.departureTemp = celsius(17)
+        calculator.departureQNH = hps(1022)
+        calculator.departureWindDir = degs(70)
+        calculator.departureWindSpd = knts(10)
+        calculator.departureRunwayCondition = .dry
+        calculator.takeoffFlapsIndex = 1
+        calculator.antiIce = true
+        calculator.packsOn = true
+        calculator.departureRunwayLengthSubtraction = meters(0)
+        calculator.cabinType = .mixed
+        calculator.selectedPaxTotal = 174
+        calculator.cargoWeight = kgs(0)
+        calculator.blockFuel = kgs(7000)
+        calculator.taxiOut = kgs(227)
+        calculator.useStandardEO = true
+        calculator.revisedOEW = nil
+        calculator.requestedFlexType = .thrustOAT
+        
+        XCTAssert(calculator.flexPermitted)
+        XCTAssert(calculator.runwayLongEnoughForFlex)
+        XCTAssert(calculator.runwayWetFlexAllowed)
+        XCTAssert(calculator.runwayContaminatedFlexAllowed)
+        XCTAssertEqual(calculator.requiredDistance.meterVal.rounded(), 1710)
+        
+        calculator.requestedFlexType = .autoFlex
+        XCTAssertEqual(calculator.calculatedFlexTemp?.celsiusVal.rounded(.down), 52)
+        XCTAssertEqual(calculator.requiredDistance.meterVal.rounded(), 2788)
+        calculator.requestedFlexType = .thrustFlex
+        calculator.selectedFlexTemp = celsius(37)
+        XCTAssertEqual(calculator.requiredDistance.meterVal.rounded(), 2111)
     }
 }

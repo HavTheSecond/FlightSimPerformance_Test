@@ -1,13 +1,13 @@
 import Foundation
 
-struct Airport: Identifiable {
-    let icao: String
-    let name: String
-    let elevation: Measurement<UnitLength>
+public struct Airport: Identifiable {
+    public let icao: String
+    public let name: String
+    public let elevation: Measurement<UnitLength>
     
-    let runways: [(name: String, length: Measurement<UnitLength>)]
+    public let runways: [(name: String, length: Measurement<UnitLength>)]
     
-    var id: String {
+    public var id: String {
         icao
     }
 }
