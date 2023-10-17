@@ -1,21 +1,14 @@
 import Foundation
 
 public struct DefaultData {
-    static public var passengerWeight = Measurement(value: 175, unit: UnitMass.pounds)
-    static public var baggageWeight = Measurement(value: 55, unit: UnitMass.pounds)
-    
-    static public var totalPassengerWeight: Measurement<UnitMass> {
-        passengerWeight + baggageWeight
-    }
-    
     private init() {}
     
     
     static public var a20n: Aircraft {
-        let tanks: [(name: String, weight: Measurement<UnitMass>)] = [
-            (name: "OUTER WINGS", weight: kgs(1386)),
-            (name: "INNER WINGS", weight: kgs(11038)),
-            (name: "CENTRE", weight: kgs(6622))
+        let tanks: [Tank] = [
+            Tank(name: "Outer Wings", weight: kgs(1386)),
+            Tank(name: "Inner Wings", weight: kgs(11038)),
+            Tank(name: "Centre", weight: kgs(6622))
         ]
         
         let toPerformances: [MeasuredPerformance] = [
@@ -30,34 +23,34 @@ public struct DefaultData {
             .init(weight: kgs(70000), distSea: meters(1621), dist2000: nil, dist4000: nil, dist6000: nil, dist8000: nil, dist10000: nil, WT_ISA_DIST: nil)
         ]
         
-        let flaps: [(name: String, toPerfImpactPercent: Double?, landPerfImpactPercent: Double)] = [
-            (name: "UP", toPerfImpactPercent: nil, landPerfImpactPercent: 1.8),
-            (name: "1+F", toPerfImpactPercent: 10, landPerfImpactPercent: 1.2),
-            (name: "2", toPerfImpactPercent: 0.0000001, landPerfImpactPercent: 1.15),
-            (name: "3", toPerfImpactPercent: -5, landPerfImpactPercent: 1.1),
-            (name: "FULL", toPerfImpactPercent: -5, landPerfImpactPercent: 0.0000001)
+        let flaps: [Flap] = [
+            Flap(name: "Up", toPerfImpactPercent: nil, landPerfImpactPercent: 1.8),
+            Flap(name: "1+F", toPerfImpactPercent: 10, landPerfImpactPercent: 1.2),
+            Flap(name: "2", toPerfImpactPercent: 0.0000001, landPerfImpactPercent: 1.15),
+            Flap(name: "3", toPerfImpactPercent: -5, landPerfImpactPercent: 1.1),
+            Flap(name: "Full", toPerfImpactPercent: -5, landPerfImpactPercent: 0.0000001)
         ]
         
-        let autobrakes = ["LOW", "MED", "MAX MAN"]
+        let autobrakes = ["Low", "Med", "Max Man"]
         
-        let engines = Engines(name: "CFM LEAP-1A", tRefSLEngineIce: (on: celsius(30), off: celsius(30)), tRef5000EngineIce: (on: celsius(30), off: celsius(30)), tMaxFlexSLEngineIce: (on: celsius(60), off: celsius(60)), tMaxFlex5000EngineIce: (on: celsius(60), off: celsius(60)), altName: "CFM LEAP-1A", altEnginePerfPercent: 100, altEngineAltCorrPercent: 100, altEngineISARateIncrease: 10031, altEngineOEW: kgs(42500), tRefSLAltEngineIce: (on: celsius(30), off: celsius(30)), tRef5000AltEngineIce: (on: celsius(30), off: celsius(30)), tMaxFlexSLAltEngineIce: (on: celsius(60), off: celsius(60)), tMaxFlex5000AltEngineIce: (on: celsius(60), off: celsius(60)), toAltPercADJWT2: (below: 100, above: 100), landingWeight: (weight: kgs(067400), percADJ: 001))
+        let engines = Engines(name: "CFM LEAP-1A", tRefSLEngineIce: ReferenceTemperatures(on: celsius(30), off: celsius(30)), tRef5000EngineIce: ReferenceTemperatures(on: celsius(30), off: celsius(30)), tMaxFlexSLEngineIce: ReferenceTemperatures(on: celsius(60), off: celsius(60)), tMaxFlex5000EngineIce: ReferenceTemperatures(on: celsius(60), off: celsius(60)), altName: "CFM LEAP-1A", altEnginePerfPercent: 100, altEngineAltCorrPercent: 100, altEngineISARateIncrease: 10031, altEngineOEW: kgs(42500), tRefSLAltEngineIce: ReferenceTemperatures(on: celsius(30), off: celsius(30)), tRef5000AltEngineIce: ReferenceTemperatures(on: celsius(30), off: celsius(30)), tMaxFlexSLAltEngineIce: ReferenceTemperatures(on: celsius(60), off: celsius(60)), tMaxFlex5000AltEngineIce: ReferenceTemperatures(on: celsius(60), off: celsius(60)), toAltPercADJWT2: TOAltitudeOffsets(below: 100, above: 100), landingWeight: LandingWeights(weight: kgs(067400), percADJ: 001))
         
-        return Aircraft(name: "A320neo", approachDetails: "Approach Cat C /  Weight Cat Medium / Max 4.2 deg Approach ", performanceSummary: "Range – 3500nm / Cruise M0.78 515kts / Max FL390", typeCheck: "A20N", vrISA: 142, toPerformances: toPerformances, landPerformances: landPerformances, flaps: flaps, isaIncrease_ISAPlusRate: (increase: celsius(15), rate: 10031), lowestFlexName: "OAT TO", maxTempPlusISA: 40, derates: nil, bump: nil, runwayLimitFirstFlaps: (warning: "MUST USE FLAP 2 OR 3, MIN RWY FOR FLAP 1+F T/O", lengthInFeet: 2000), maxApproachSpeedAddition: 15, headwindDivisionSpeedAddition: 3, autobrakes: autobrakes, engines: engines, oew: kgs(42500), maxZFW: kgs(62500), maxTOW: kgs(79000), maxLandingWT: kgs(67400), standardTaxiFuel: kgs(300), maxNoseUpTrim: (cg: 17, trimTenths: 25), zeroTrimCG: 28.5, maxNoseDownTrim: (cg: 40, trimTenths: 25), firstClass: 0, business: 12, economy: 162, allEconomyPaxNo: 186, frontCargo: kgs(3402), rearCargo: kgs(6033), tanks: tanks, minContingencyFuelFor15Min: kgs(550), minFinalReserve: kgs(898), maxWindTOLand: knts(50), maxCrosswind: knts(38), maxTailWindTO: knts(10), maxTailWindLand: knts(15), maxGlidepath: degs(4.2), maxCrosswindAutoland: knts(20), maxTailwindAutoland: knts(10), maxHeadwindAutoland: knts(30), maxGlidepathAutoland: degs(3.15), maxOperatingAltitude: ft(39000), standardMaximumAirfieldAltitude: ft(9000), maxTailwindSteepApproach: nil, minStandardLandingFlapsIndex: 3, rccFlexLimit: 4)
+        return Aircraft(name: "Airbus A320neo", approachDetails: "Approach Cat C /  Weight Cat Medium / Max 4.2 deg Approach ", performanceSummary: "Range – 3500nm / Cruise M0.78 515kts / Max FL390", typeCheck: "A20N", vrISA: 142, toPerformances: toPerformances, landPerformances: landPerformances, flaps: flaps, isaIncrease_ISAPlusRate: ISAIncrease_ISAPlusRate(increase: celsius(15), rate: 10031), lowestFlexName: "OAT TO", maxTempPlusISA: 40, derates: nil, bump: nil, runwayLimitFirstFlaps: RunwayLimit(warning: "MUST USE FLAP 2 OR 3, MIN RWY FOR FLAP 1+F T/O", lengthInFeet: 2000), maxApproachSpeedAddition: 15, headwindDivisionSpeedAddition: 3, autobrakes: autobrakes, engines: engines, oew: kgs(42500), maxZFW: kgs(62500), maxTOW: kgs(79000), maxLandingWT: kgs(67400), standardTaxiFuel: kgs(300), maxNoseUpTrim: Trim(cg: 17, trimTenths: 25), zeroTrimCG: 28.5, maxNoseDownTrim: Trim(cg: 40, trimTenths: 25), firstClass: 0, business: 12, economy: 162, allEconomyPaxNo: 186, frontCargo: kgs(3402), rearCargo: kgs(6033), selectedMaxPayload: nil, tanks: tanks, minContingencyFuelFor15Min: kgs(550), minFinalReserve: kgs(898), maxWindTOLand: knts(50), maxCrosswind: knts(38), maxTailWindTO: knts(10), maxTailWindLand: knts(15), maxGlidepath: degs(4.2), maxCrosswindAutoland: knts(20), maxTailwindAutoland: knts(10), maxHeadwindAutoland: knts(30), maxGlidepathAutoland: degs(3.15), maxOperatingAltitude: ft(39000), standardMaximumAirfieldAltitude: ft(9000), maxTailwindSteepApproach: nil, minStandardLandingFlapsIndex: 3, rccFlexLimit: 4)
     }
     
     static public var eddf: Airport {
-        let runways: [(name: String, length: Measurement<UnitLength>)] = [
-            (name: "07C", length: ft(13123)),
-            (name: "07L", length: ft(9186)),
-            (name: "07R", length: ft(13123)),
-            (name: "18", length: ft(13018)),
-            (name: "25C", length: ft(13123)),
-            (name: "25R", length: ft(9186)),
-            (name: "25L", length: ft(13123)),
-            (name: "36", length: ft(13018))
+        let runways: [Runway] = [
+            Runway(name: "07C", length: ft(13123)),
+            Runway(name: "07L", length: ft(9186)),
+            Runway(name: "07R", length: ft(13123)),
+            Runway(name: "18", length: ft(13018)),
+            Runway(name: "25C", length: ft(13123)),
+            Runway(name: "25R", length: ft(9186)),
+            Runway(name: "25L", length: ft(13123)),
+            Runway(name: "36", length: ft(13018))
         ]
         
-        return Airport(icao: "EDDF", name: "FRANKFURT/MAIN", elevation: ft(364), runways: runways)
+        return Airport(icao: "EDDF", name: "Frankfurt/Main", elevation: ft(364), runways: runways)
     }
 }
 

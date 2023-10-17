@@ -1,18 +1,270 @@
 import Foundation
 
 @Observable
-public class Calculator {
-    public var aircraft: Aircraft
-    public var useStandardEO = true
-    public var cabinType = CabinType.mixed
+public class Calculator: Codable {
+    public var data: InternalData
     
-    public var packsOn = false
-    public var antiIce = false
-    public var takeoffFlapsIndex = 1
+    public var passengerWeight: Measurement<UnitMass> {
+        get {
+            data.passengerWeight
+        }
+        set {
+            data.passengerWeight = newValue
+        }
+    }
+    public var baggageWeight: Measurement<UnitMass> {
+        get {
+            data.baggageWeight
+        }
+        set {
+            data.baggageWeight = newValue
+        }
+    }
+    public var totalPassengerWeight: Measurement<UnitMass> {
+        passengerWeight + baggageWeight
+    }
     
-    public var requestedFlexType = RequestedFlexType.autoFlex
-    public var selectedFlexTemp = celsius(74)
-    public var selectedDeratePerc = 0
+    public func resetData() {
+        data = InternalData(aircraft: DefaultData.a20n, departureAirport: DefaultData.eddf)
+    }
+    
+    public var aircraft: Aircraft {
+        get {
+            data.aircraft
+        }
+        set {
+            data.aircraft = newValue
+        }
+    }
+    public var useStandardEO: Bool {
+        get {
+            data.useStandardEO
+        }
+        set {
+            data.useStandardEO = newValue
+        }
+    }
+    public var cabinType: CabinType {
+        get {
+            data.cabinType
+        }
+        set {
+            data.cabinType = newValue
+        }
+    }
+    
+    public var packsOn: Bool {
+        get {
+            data.packsOn
+        }
+        set {
+            data.packsOn = newValue
+        }
+    }
+    public var antiIce: Bool {
+        get {
+            data.antiIce
+        }
+        set {
+            data.antiIce = newValue
+        }
+    }
+    public var takeoffFlapsIndex: Int {
+        get {
+            data.takeoffFlapsIndex
+        }
+        set {
+            data.takeoffFlapsIndex = newValue
+        }
+    }
+    
+    public var requestedFlexType: RequestedFlexType {
+        get {
+            data.requestedFlexType
+        }
+        set {
+            data.requestedFlexType = newValue
+        }
+    }
+    public var selectedFlexTemp: Measurement<UnitTemperature> {
+        get {
+            data.selectedFlexTemp
+        }
+        set {
+            data.selectedFlexTemp = newValue
+        }
+    }
+    public var selectedDeratePerc: Int {
+        get {
+            data.selectedDeratePerc
+        }
+        set {
+            data.selectedDeratePerc = newValue
+        }
+    }
+    
+    public var departureAirport: Airport {
+        get {
+            data.departureAirport
+        }
+        set {
+            data.departureAirport = newValue
+        }
+    }
+    public var departureRunwayIndex: UInt {
+        get {
+            data.departureRunwayIndex
+        }
+        set {
+            data.departureRunwayIndex = newValue
+        }
+    }
+    public var departureRunwayCondition: RunwayCondition {
+        get {
+            data.departureRunwayCondition
+        }
+        set {
+            data.departureRunwayCondition = newValue
+        }
+    }
+    public var departureRunwayLengthSubtraction: Measurement<UnitLength> {
+        get {
+            data.departureRunwayLengthSubtraction
+        }
+        set {
+            data.departureRunwayLengthSubtraction = newValue
+        }
+    }
+    public var paxTotal: UInt {
+        get {
+            data.paxTotal
+        }
+        set {
+            data.paxTotal = newValue
+        }
+    }
+    
+    public var cargoWeight: Measurement<UnitMass> {
+        get {
+            data.cargoWeight
+        }
+        set {
+            data.cargoWeight = newValue
+        }
+    }
+    public var blockFuel: Measurement<UnitMass> {
+        get {
+            data.blockFuel
+        }
+        set {
+            data.blockFuel = newValue
+        }
+    }
+    public var tripFuel: Measurement<UnitMass> {
+        get {
+            data.tripFuel
+        }
+        set {
+            data.tripFuel = newValue
+        }
+    }
+    public var contingencyFuel: Measurement<UnitMass> {
+        get {
+            data.contingencyFuel
+        }
+        set {
+            data.contingencyFuel = newValue
+        }
+    }
+    public var taxiOut: Measurement<UnitMass> {
+        get {
+            data.taxiOut
+        }
+        set {
+            data.taxiOut = newValue
+        }
+    }
+    public var alternate: Measurement<UnitMass> {
+        get {
+            data.alternate
+        }
+        set {
+            data.alternate = newValue
+        }
+    }
+    public var finalReserve: Measurement<UnitMass> {
+        get {
+            data.finalReserve
+        }
+        set {
+            data.finalReserve = newValue
+        }
+    }
+    
+    public var actualZFW: Measurement<UnitMass>? {
+        get {
+            data.actualZFW
+        }
+        set {
+            data.actualZFW = newValue
+        }
+    }
+    
+    public var revisedOEW: Measurement<UnitMass>? {
+        get {
+            data.revisedOEW
+        }
+        set {
+            data.revisedOEW = newValue
+        }
+    }
+    
+    public var zfwCG: Double {
+        get {
+            data.zfwCG
+        }
+        set {
+            data.zfwCG = newValue
+        }
+    }
+    
+    public var departureWindDir: Measurement<UnitAngle> {
+        get {
+            data.departureWindDir
+        }
+        set {
+            data.departureWindDir = newValue
+        }
+    }
+    public var departureWindSpd: Measurement<UnitSpeed> {
+        get {
+            data.departureWindSpd
+        }
+        set {
+            data.departureWindSpd = newValue
+        }
+    }
+    
+    public var departureTemp: Measurement<UnitTemperature> {
+        get {
+            data.departureTemp
+        }
+        set {
+            data.departureTemp = newValue
+        }
+    }
+    public var departureQNH: Measurement<UnitPressure> {
+        get {
+            data.departureQNH
+        }
+        set {
+            data.departureQNH = newValue
+        }
+    }
+    
+    public init() {
+        data = InternalData(aircraft: DefaultData.a20n, departureAirport: DefaultData.eddf)
+    }
     
     public var calculatedFlexTemp: Measurement<UnitTemperature>? {
         guard flexPermitted,
@@ -158,7 +410,7 @@ public class Calculator {
     }
     
     private var trefMinDerate: Measurement<UnitTemperature> {
-        let options: [(on: Measurement<UnitTemperature>, off: Measurement<UnitTemperature>)]
+        let options: [ReferenceTemperatures]
         let engines = aircraft.engines
         if useStandardEO {
             options = [engines.tRefSLEngineIce, engines.tRef5000EngineIce]
@@ -166,8 +418,8 @@ public class Calculator {
             options = [engines.tRefSLAltEngineIce, engines.tRef5000AltEngineIce]
         }
         
-        let engineValues = options.map { (on: Measurement<UnitTemperature>, off: Measurement<UnitTemperature>) in
-            (antiIce ? on : off).celsiusVal
+        let engineValues = options.map { referenceTemp in
+            (antiIce ? referenceTemp.on : referenceTemp.off).celsiusVal
         }
         
         let trendCalc = RegressionCalculator(xValues: [0, 5000], yValues: engineValues)
@@ -175,7 +427,7 @@ public class Calculator {
     }
     
     private var trefMaxFlex: Measurement<UnitTemperature> {
-        let options: [(on: Measurement<UnitTemperature>, off: Measurement<UnitTemperature>)]
+        let options: [ReferenceTemperatures]
         let engines = aircraft.engines
         if useStandardEO {
             options = [engines.tMaxFlexSLEngineIce, engines.tMaxFlex5000EngineIce]
@@ -183,8 +435,8 @@ public class Calculator {
             options = [engines.tMaxFlexSLAltEngineIce, engines.tMaxFlex5000AltEngineIce]
         }
         
-        let engineValues = options.map { (on: Measurement<UnitTemperature>, off: Measurement<UnitTemperature>) in
-            (antiIce ? on : off).celsiusVal
+        let engineValues = options.map { refTemp in
+            (antiIce ? refTemp.on : refTemp.off).celsiusVal
         }
         
         let trendCalc = RegressionCalculator(xValues: [0, 5000], yValues: engineValues)
@@ -303,9 +555,6 @@ public class Calculator {
         }
     }
     
-    public var departureAirport: Airport
-    public var departureRunwayIndex: UInt = 0
-    public var departureRunwayCondition: RunwayCondition = RunwayCondition.dry
     public var departureRunwayRCC: UInt {
         let necessarySubtraction = (departureRunwayCondition.description == "SNOW COMPACTED" && departureTemp > Measurement(value: -15, unit: .celsius)) ? UInt(1) : 0
         return departureRunwayCondition.rcc - necessarySubtraction
@@ -315,15 +564,14 @@ public class Calculator {
         calculateBrakingQuality(rcc: departureRunwayRCC)
     }
     
-    public var departureRunway: (name: String, length: Measurement<UnitLength>) {
+    public var departureRunway: Runway {
         guard departureAirport.runways.count > departureRunwayIndex else {
-            return (name: "N/A", length: ft(0))
+            return Runway(name: "N/A", length: ft(0))
         }
         
         return departureAirport.runways[Int(departureRunwayIndex)]
     }
     
-    public var departureRunwayLengthSubtraction = ft(0)
     public var departureRunwayLength: Measurement<UnitLength> {
         departureRunway.length - departureRunwayLengthSubtraction
     }
@@ -331,11 +579,6 @@ public class Calculator {
     public var departureDensityAltitude: Measurement<UnitLength> {
         departureAirport.elevation + ft((hps(1013) -  departureQNH).hpVal * 27)
         + (ft((departureTemp - celsius(15)).celsiusVal) + departureAirport.elevation / 500) * 120
-    }
-    
-    public var selectedPaxTotal: UInt = 0
-    public var paxTotal: UInt {
-        min(selectedPaxTotal, maxPaxTotal)
     }
     
     public var paxFirstClass: UInt {
@@ -388,11 +631,11 @@ public class Calculator {
     }
     
     public var paxWeightFirstClass: Measurement<UnitMass> {
-        Double(paxFirstClass) * DefaultData.passengerWeight
+        Double(paxFirstClass) * passengerWeight
     }
     
     public var paxWeightBusiness: Measurement<UnitMass> {
-        Double(paxBusiness) * DefaultData.passengerWeight
+        Double(paxBusiness) * passengerWeight
     }
     
     public var paxWeightEconomy: Measurement<UnitMass> {
@@ -400,19 +643,12 @@ public class Calculator {
     }
     
     public var paxWeightTotal: Measurement<UnitMass> {
-        Double(paxTotal) * DefaultData.passengerWeight
+        Double(paxTotal) * passengerWeight
     }
     
     public var paxAndBaggageTotal: Measurement<UnitMass> {
-        Double(paxTotal) * DefaultData.totalPassengerWeight
+        Double(paxTotal) * totalPassengerWeight
     }
-    
-    public var cargoWeight = kgs(0)
-    public var blockFuel = kgs(0)
-    public var tripFuel = kgs(0)
-    public var taxiOut = kgs(0)
-    public var alternate = kgs(0)
-    public var finalReserve = kgs(0)
     
     public var maxCargoWeight: Measurement<UnitMass> {
         if cabinType == .cargo {
@@ -420,37 +656,67 @@ public class Calculator {
         } else {
             let baggageAndCargoLimit = max(kgs(0), maxBaggageAndCargoWeight - baggageWeightTotal)
             let payloadLimit = max(kgs(0),maxPayloadWeight - paxAndBaggageTotal)
-            let rampLimit = maxRampWeight - min(blockFuel, maxFuelWeight) - actualOEW - paxAndBaggageTotal
-            let towLimit = maxTOW - min(blockFuel, maxFuelWeight) + taxiOut - actualOEW - paxAndBaggageTotal
+            let rampLimit = maxRampWeight - blockFuel - actualOEW - paxAndBaggageTotal
+            let towLimit = maxTOW - blockFuel + taxiOut - actualOEW - paxAndBaggageTotal
             let limitation = min(baggageAndCargoLimit, payloadLimit, rampLimit, towLimit)
             return max(kgs(0), limitation)
         }
     }
     
+    public var situationalMaxTOW: Measurement<UnitMass> {
+        let landingWeightPotential = maxLandingWT + tripFuel
+        return min(maxTOW, landingWeightPotential)
+    }
+    
+    public var situationalMaxZFW: Measurement<UnitMass> {
+        let rampWeightPotential = min(maxRampWeight, maxTOW + taxiOut) - blockFuel
+        let fuelToLanding = taxiOut + tripFuel
+        let remainingFuel = blockFuel - fuelToLanding
+        let landingWeightPotential = maxLandingWT - remainingFuel
+        return min(maxZFW, rampWeightPotential, landingWeightPotential)
+    }
+    
+    public var situationalMaxOEW: Measurement<UnitMass> {
+        return situationalMaxZFW - payloadWeight
+    }
+    
+    public var extraFuel: Measurement<UnitMass> {
+        blockFuel - taxiOut - tripFuel - contingencyFuel - alternate - finalReserve
+    }
+    
     public var minimumTOFuel: Measurement<UnitMass> {
-        blockFuel - taxiOut
+        blockFuel - taxiOut - extraFuel
     }
     
     public var maxFuelWeight: Measurement<UnitMass> {
         aircraft.maxFuelWeight
     }
     
+    public var situationalMaxFuelWeight: Measurement<UnitMass> {
+        let rampWeightPotential = min(maxRampWeight, maxTOW + taxiOut) - zeroFuelWeight
+        let fuelToLanding = taxiOut + tripFuel
+        let landingWeightPotential = maxLandingWT - zeroFuelWeight + fuelToLanding
+        return min(maxFuelWeight, rampWeightPotential, landingWeightPotential)
+    }
+    
     public var fuelTanks: [(name: String, fillPercentage: Double, weight: Measurement<UnitMass>, capacity: Measurement<UnitMass>)] {
         var result = [(name: String, fillPercentage: Double, weight: Measurement<UnitMass>, capacity: Measurement<UnitMass>)]()
         var distributedFuel = kgs(0)
-        for (name, weight) in aircraft.tanks {
-            let fillWith = min(weight, blockFuel - distributedFuel)
+        for tank in aircraft.tanks {
+            let fillWith = min(tank.weight, blockFuel - distributedFuel)
             distributedFuel = distributedFuel + fillWith
-            let fillPercentage = fillWith.kgsVal / weight.kgsVal * 100
-            result.append((name: name, fillPercentage: fillPercentage, weight: fillWith, capacity: weight))
+            let fillPercentage = fillWith.kgsVal / tank.weight.kgsVal * 100
+            result.append((name: tank.name, fillPercentage: fillPercentage, weight: fillWith, capacity: tank.weight))
         }
         let totalCapacity = aircraft.maxFuelWeight
-        result.insert((name: "TOTAL", fillPercentage: blockFuel.kgsVal / totalCapacity.kgsVal * 100, weight: blockFuel, capacity: totalCapacity), at: 0)
+        result.insert((name: "Total", fillPercentage: blockFuel.kgsVal / totalCapacity.kgsVal * 100, weight: blockFuel, capacity: totalCapacity), at: 0)
         
         return result
     }
     
-    public var revisedOEW = nil as Measurement<UnitMass>?
+    public var totalFuelVolume: Measurement<UnitVolume> {
+        Measurement(value: blockFuel.kgsVal * 1.245576, unit: UnitVolume.liters)
+    }
     
     public var actualOEW: Measurement<UnitMass> {
         revisedOEW ?? savedOEW
@@ -464,8 +730,16 @@ public class Calculator {
         }
     }
     
+    public var weightDifference: Measurement<UnitMass> {
+        payloadWeight - (paxAndBaggageTotal + cargoWeight)
+    }
+    
     public var payloadWeight: Measurement<UnitMass> {
-        paxAndBaggageTotal + cargoWeight
+        if let actualZFW {
+            actualZFW - actualOEW
+        } else {
+            paxAndBaggageTotal + cargoWeight
+        }
     }
     
     public var payloadLoadPercentage: Double {
@@ -481,7 +755,7 @@ public class Calculator {
     }
     
     public var baggageWeightTotal: Measurement<UnitMass> {
-        Double(paxTotal) * DefaultData.baggageWeight
+        Double(paxTotal) * baggageWeight
     }
     
     public var totalMainDeckCargoWeight: Measurement<UnitMass>? {
@@ -570,8 +844,6 @@ public class Calculator {
         aircraft.maxLandingWT
     }
     
-    public var zfwCG = 25.0
-    
     /// - Returns negative Value if nose down trim
     public var toTrim: Double? {
         guard let noseUp = aircraft.maxNoseUpTrim,
@@ -590,9 +862,6 @@ public class Calculator {
         return noseDownTrim + noseUpTrim
     }
     
-    public var departureWindDir = degs(0)
-    public var departureWindSpd = knts(0)
-    
     public var departureHeadOrTailWind: Measurement<UnitSpeed> {
         let trueWind = cos((departureWindDir - rwyDir(name: departureRunway.name)).radiansVal)
         return departureWindSpd * trueWind
@@ -610,17 +879,9 @@ public class Calculator {
         
         return degs(number * 10)
     }
-    
-    public var departureTemp = celsius(15)
-    public var departureQNH = hps(1013)
-    
-    public init() {
-        aircraft = DefaultData.a20n
-        departureAirport = DefaultData.eddf
-    }
 }
 
-public struct RunwayCondition {
+public struct RunwayCondition: Codable, Equatable {
     public let description: String
     public let rcc: UInt
     
@@ -639,15 +900,15 @@ public struct RunwayCondition {
     }
 }
 
-public enum CabinType {
+public enum CabinType: Codable, Equatable {
     case mixed, economyOnly, cargo
 }
 
-public enum RequestedFlexType {
+public enum RequestedFlexType: Codable, Equatable {
     case thrustOAT, thrustFlex, autoFlex, derate
 }
 
-public enum BrakingQuality {
+public enum BrakingQuality: Codable, Equatable {
     case brakingGood, brakingGoodToMedium, brakingMedium, brakingMediumToPoor, brakingPoor, brakingBelowPoor
 }
 
@@ -666,4 +927,52 @@ private func calculateBrakingQuality(rcc: UInt) -> BrakingQuality {
         default:
             return .brakingGood
     }
+}
+
+public struct InternalData: Codable, Equatable {
+    var aircraft: Aircraft
+    var useStandardEO = true
+    var cabinType = CabinType.mixed
+    
+    var packsOn = false
+    var antiIce = false
+    var takeoffFlapsIndex = 1
+    
+    var requestedFlexType = RequestedFlexType.autoFlex
+    var selectedFlexTemp = celsius(74)
+    var selectedDeratePerc = 0
+    
+    var departureAirport: Airport
+    var departureRunwayIndex: UInt = 0
+    var departureRunwayCondition: RunwayCondition = RunwayCondition.dry
+    var departureRunwayLengthSubtraction = ft(0)
+    var paxTotal: UInt = 0
+    
+    var cargoWeight = kgs(0)
+    var blockFuel = kgs(0)
+    var tripFuel = kgs(0)
+    var contingencyFuel = kgs(0)
+    var taxiOut = kgs(0)
+    var alternate = kgs(0)
+    var finalReserve = kgs(0)
+    
+    var actualZFW = nil as Measurement<UnitMass>?
+    
+    var revisedOEW = nil as Measurement<UnitMass>?
+    
+    var zfwCG = 25.0
+    
+    var departureWindDir = degs(0)
+    var departureWindSpd = knts(0)
+    
+    var departureTemp = celsius(15)
+    var departureQNH = hps(1013)
+    
+    init(aircraft: Aircraft, departureAirport: Airport) {
+        self.aircraft = aircraft
+        self.departureAirport = departureAirport
+    }
+    
+    public var passengerWeight = Measurement(value: 175, unit: UnitMass.pounds)
+    public var baggageWeight = Measurement(value: 55, unit: UnitMass.pounds)
 }

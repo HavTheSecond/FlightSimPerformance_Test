@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Aircraft {
+public struct Aircraft: Codable, Equatable {
     
     // MARK: User information
     public let name: String
@@ -13,16 +13,16 @@ public struct Aircraft {
     
     public let toPerformances: [MeasuredPerformance]
     public let landPerformances: [MeasuredPerformance]
-    public let flaps: [(name: String, toPerfImpactPercent: Double?, landPerfImpactPercent: Double)]
-    public let isaIncrease_ISAPlusRate: (increase: Measurement<UnitTemperature>, rate: UInt)
+    public let flaps: [Flap]
+    public let isaIncrease_ISAPlusRate: ISAIncrease_ISAPlusRate
     
     public let lowestFlexName: String
     public let maxTempPlusISA: UInt
     
-    public let derates: [(name: String, minusPercent: UInt)]?
-    public let bump: (name: String, plusPercent: UInt)?
+    public let derates: [Derate]?
+    public let bump: Bump?
     
-    public let runwayLimitFirstFlaps: (warning: String, lengthInFeet: UInt)?
+    public let runwayLimitFirstFlaps: RunwayLimit?
     
     public let maxApproachSpeedAddition: UInt
     public let headwindDivisionSpeedAddition: UInt
@@ -42,32 +42,23 @@ public struct Aircraft {
     
     public var standardTaxiFuel: Measurement<UnitMass>
     
-    public let maxNoseUpTrim: (cg: Double, trimTenths: UInt)?
+    public let maxNoseUpTrim: Trim?
     public let zeroTrimCG: Double?
-    public let maxNoseDownTrim: (cg: Double, trimTenths: UInt)?
+    public let maxNoseDownTrim: Trim?
     
     // MARK: Passenger numbers
     public let firstClass: UInt
-    public var firstClassWT: Measurement<UnitMass> {
-        DefaultData.passengerWeight * Double(firstClass)
-    }
     
     public let business: UInt
-    public var busClassWT: Measurement<UnitMass> {
-        DefaultData.passengerWeight * Double(business)
-    }
     
     public let economy: UInt
-    public var econWT: Measurement<UnitMass> {
-        DefaultData.passengerWeight * Double(economy)
-    }
     
     public let allEconomyPaxNo: UInt
     
     // MARK: Cargo
     public let frontCargo: Measurement<UnitMass>
     public let rearCargo: Measurement<UnitMass>
-    public let selectedMaxPayload = nil as Measurement<UnitMass>?
+    public let selectedMaxPayload: Measurement<UnitMass>?
     public var maximumPayload: Measurement<UnitMass> {
         selectedMaxPayload ?? (maxZFW - oew)
     }
@@ -76,7 +67,7 @@ public struct Aircraft {
     }
     
     // MARK: Fuel
-    public let tanks: [(name: String, weight: Measurement<UnitMass>)]
+    public let tanks: [Tank]
     public var maxFuelWeight: Measurement<UnitMass> {
         tanks.reduce(kgs(0), {$0+$1.weight})
     }
@@ -111,7 +102,7 @@ public struct Aircraft {
     public let rccFlexLimit: UInt
 }
 
-public struct MeasuredPerformance {
+public struct MeasuredPerformance: Codable, Equatable {
     public let weight: Measurement<UnitMass>
     public let distSea: Measurement<UnitLength>
     public let dist2000: Measurement<UnitLength>?
@@ -122,22 +113,73 @@ public struct MeasuredPerformance {
     public let WT_ISA_DIST: Measurement<UnitLength>?
 }
 
-public struct Engines {
+public struct Engines: Codable, Equatable {
     public let name: String
-    public let tRefSLEngineIce: (on: Measurement<UnitTemperature>, off: Measurement<UnitTemperature>)
-    public let tRef5000EngineIce: (on: Measurement<UnitTemperature>, off: Measurement<UnitTemperature>)
-    public let tMaxFlexSLEngineIce: (on: Measurement<UnitTemperature>, off: Measurement<UnitTemperature>)
-    public let tMaxFlex5000EngineIce: (on: Measurement<UnitTemperature>, off: Measurement<UnitTemperature>)
+    public let tRefSLEngineIce: ReferenceTemperatures
+    public let tRef5000EngineIce: ReferenceTemperatures
+    public let tMaxFlexSLEngineIce: ReferenceTemperatures
+    public let tMaxFlex5000EngineIce: ReferenceTemperatures
     
     public let altName: String
     public let altEnginePerfPercent: UInt?
     public let altEngineAltCorrPercent: UInt?
     public let altEngineISARateIncrease: UInt
     public let altEngineOEW: Measurement<UnitMass>
-    public let tRefSLAltEngineIce: (on: Measurement<UnitTemperature>, off: Measurement<UnitTemperature>)
-    public let tRef5000AltEngineIce: (on: Measurement<UnitTemperature>, off: Measurement<UnitTemperature>)
-    public let tMaxFlexSLAltEngineIce: (on: Measurement<UnitTemperature>, off: Measurement<UnitTemperature>)
-    public let tMaxFlex5000AltEngineIce: (on: Measurement<UnitTemperature>, off: Measurement<UnitTemperature>)
-    public let toAltPercADJWT2: (below: Int, above: Int)
-    public let landingWeight: (weight: Measurement<UnitMass>, percADJ: Int)
+    public let tRefSLAltEngineIce: ReferenceTemperatures
+    public let tRef5000AltEngineIce: ReferenceTemperatures
+    public let tMaxFlexSLAltEngineIce: ReferenceTemperatures
+    public let tMaxFlex5000AltEngineIce: ReferenceTemperatures
+    public let toAltPercADJWT2: TOAltitudeOffsets
+    public let landingWeight: LandingWeights
+}
+
+public struct ISAIncrease_ISAPlusRate: Codable, Equatable {
+    let increase: Measurement<UnitTemperature>
+    let rate: UInt
+}
+
+public struct Flap: Codable, Equatable {
+    let name: String
+    let toPerfImpactPercent: Double?
+    let landPerfImpactPercent: Double
+}
+
+public struct Derate: Codable, Equatable {
+    let name: String
+    let minusPercent: UInt
+}
+
+public struct Bump: Codable, Equatable {
+    let name: String
+    let plusPercent: UInt
+}
+
+public struct RunwayLimit: Codable, Equatable {
+    let warning: String
+    let lengthInFeet: UInt
+}
+
+public struct Trim: Codable, Equatable {
+    let cg: Double
+    let trimTenths: UInt
+}
+
+public struct Tank: Codable, Equatable {
+    let name: String
+    let weight: Measurement<UnitMass>
+}
+
+public struct ReferenceTemperatures: Codable, Equatable {
+    let on: Measurement<UnitTemperature>
+    let off: Measurement<UnitTemperature>
+}
+
+public struct TOAltitudeOffsets: Codable, Equatable {
+    let below: Int
+    let above: Int
+}
+
+public struct LandingWeights: Codable, Equatable {
+    let weight: Measurement<UnitMass>
+    let percADJ: Int
 }

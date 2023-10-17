@@ -7,19 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA1502422ADC98300001B0A5 /* LoadSheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1502412ADC98300001B0A5 /* LoadSheets.swift */; };
+		DA2B59D62ADC4DC500A33A73 /* AircraftSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B59D52ADC4DC500A33A73 /* AircraftSetup.swift */; };
+		DA2B59DB2ADC4F1200A33A73 /* PerformanceCalculator in Frameworks */ = {isa = PBXBuildFile; productRef = DA2B59DA2ADC4F1200A33A73 /* PerformanceCalculator */; };
+		DA2B59DD2ADC710500A33A73 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B59DC2ADC710500A33A73 /* UserPreferences.swift */; };
+		DA2B59DF2ADC7AD600A33A73 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B59DE2ADC7AD600A33A73 /* SettingsView.swift */; };
 		DA3496BF2AD47E1400D406C2 /* FlightSimPerformanceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3496BE2AD47E1400D406C2 /* FlightSimPerformanceApp.swift */; };
 		DA3496C12AD47E1400D406C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3496C02AD47E1400D406C2 /* ContentView.swift */; };
 		DA3496C32AD47E1500D406C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA3496C22AD47E1500D406C2 /* Assets.xcassets */; };
 		DA3496C62AD47E1500D406C2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA3496C52AD47E1500D406C2 /* Preview Assets.xcassets */; };
+		DABFB6F92ADDED8B00F8B211 /* ActualZFWSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABFB6F82ADDED8B00F8B211 /* ActualZFWSelector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA1502412ADC98300001B0A5 /* LoadSheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSheets.swift; sourceTree = "<group>"; };
+		DA2B59D52ADC4DC500A33A73 /* AircraftSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AircraftSetup.swift; sourceTree = "<group>"; };
+		DA2B59DC2ADC710500A33A73 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		DA2B59DE2ADC7AD600A33A73 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		DA3496BB2AD47E1400D406C2 /* FlightSimPerformance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlightSimPerformance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA3496BE2AD47E1400D406C2 /* FlightSimPerformanceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightSimPerformanceApp.swift; sourceTree = "<group>"; };
 		DA3496C02AD47E1400D406C2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DA3496C22AD47E1500D406C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA3496C52AD47E1500D406C2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA3496CC2AD47E9E00D406C2 /* PerformanceCalculator */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PerformanceCalculator; sourceTree = "<group>"; };
+		DABFB6F82ADDED8B00F8B211 /* ActualZFWSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActualZFWSelector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,18 +38,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA2B59DB2ADC4F1200A33A73 /* PerformanceCalculator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA2B59D92ADC4F1200A33A73 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DA3496B22AD47E1400D406C2 = {
 			isa = PBXGroup;
 			children = (
 				DA3496CC2AD47E9E00D406C2 /* PerformanceCalculator */,
 				DA3496BD2AD47E1400D406C2 /* FlightSimPerformance */,
 				DA3496BC2AD47E1400D406C2 /* Products */,
+				DA2B59D92ADC4F1200A33A73 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,6 +75,11 @@
 			children = (
 				DA3496BE2AD47E1400D406C2 /* FlightSimPerformanceApp.swift */,
 				DA3496C02AD47E1400D406C2 /* ContentView.swift */,
+				DA2B59D52ADC4DC500A33A73 /* AircraftSetup.swift */,
+				DA2B59DC2ADC710500A33A73 /* UserPreferences.swift */,
+				DA2B59DE2ADC7AD600A33A73 /* SettingsView.swift */,
+				DA1502412ADC98300001B0A5 /* LoadSheets.swift */,
+				DABFB6F82ADDED8B00F8B211 /* ActualZFWSelector.swift */,
 				DA3496C22AD47E1500D406C2 /* Assets.xcassets */,
 				DA3496C42AD47E1500D406C2 /* Preview Content */,
 			);
@@ -83,8 +108,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				DA2B59D82ADC4F0A00A33A73 /* PBXTargetDependency */,
 			);
 			name = FlightSimPerformance;
+			packageProductDependencies = (
+				DA2B59DA2ADC4F1200A33A73 /* PerformanceCalculator */,
+			);
 			productName = FlightSimPerformance;
 			productReference = DA3496BB2AD47E1400D406C2 /* FlightSimPerformance.app */;
 			productType = "com.apple.product-type.application";
@@ -139,12 +168,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA2B59DF2ADC7AD600A33A73 /* SettingsView.swift in Sources */,
 				DA3496C12AD47E1400D406C2 /* ContentView.swift in Sources */,
+				DA2B59DD2ADC710500A33A73 /* UserPreferences.swift in Sources */,
 				DA3496BF2AD47E1400D406C2 /* FlightSimPerformanceApp.swift in Sources */,
+				DA2B59D62ADC4DC500A33A73 /* AircraftSetup.swift in Sources */,
+				DA1502422ADC98300001B0A5 /* LoadSheets.swift in Sources */,
+				DABFB6F92ADDED8B00F8B211 /* ActualZFWSelector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA2B59D82ADC4F0A00A33A73 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = DA2B59D72ADC4F0A00A33A73 /* PerformanceCalculator */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DA3496C72AD47E1500D406C2 /* Debug */ = {
@@ -346,6 +387,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DA2B59D72ADC4F0A00A33A73 /* PerformanceCalculator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PerformanceCalculator;
+		};
+		DA2B59DA2ADC4F1200A33A73 /* PerformanceCalculator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PerformanceCalculator;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DA3496B32AD47E1400D406C2 /* Project object */;
 }
