@@ -21,6 +21,10 @@ struct AircraftSetup: View {
     @State private var setOEW = 0
     
     @State private var setActualZFW = false
+    
+    @State private var consistencyReset = false
+    @State private var unitReset = false
+    
     var currentState: String {
         if let actualWeight = calculator.actualZFW {
             return prefs.stringFromWeight(actualWeight)
@@ -40,6 +44,7 @@ struct AircraftSetup: View {
             calculator.paxTotal = min(calculator.maxPaxTotal, calculator.paxTotal)
             selectedPax = Int(calculator.paxTotal)
         }
+        consistencyReset.toggle()
     }
     
     func setUp() {
@@ -126,14 +131,19 @@ struct AircraftSetup: View {
                 
                 Spacer()
                 
-                MeasurementTextField(prompt: "Cargo Weight in \(prefs.weightUnit.symbol)", value: $calculator.cargoWeight, unit: {prefs.weightUnit}) { value in
+                MeasurementTextField(prompt: "Cargo Weight in \(prefs.weightUnit.symbol)", value: $calculator.cargoWeight, unit: {prefs.weightUnit}, consistencyReset: $consistencyReset, unitReset: $unitReset) { oldValue, value in
                     if value >= kgs(0) && (value <= calculator.maxCargoWeight || preventionBypass) {
                         return value
+                    } else if oldValue >= kgs(0) && (oldValue <= calculator.maxCargoWeight || preventionBypass) {
+                        return oldValue
                     } else {
                         return min(calculator.maxCargoWeight, calculator.cargoWeight)
                     }
                 }
                 .foregroundStyle(.secondary)
+            }
+            .onChange(of: prefs.weightUnit) { oldValue, newValue in
+                unitReset.toggle()
             }
             
             HStack {
@@ -142,9 +152,11 @@ struct AircraftSetup: View {
                 
                 Spacer()
                 
-                MeasurementTextField(prompt: "Block Fuel in \(prefs.weightUnit.symbol)", value: $calculator.blockFuel, unit: {prefs.weightUnit}) { value in
+                MeasurementTextField(prompt: "Block Fuel in \(prefs.weightUnit.symbol)", value: $calculator.blockFuel, unit: {prefs.weightUnit}, consistencyReset: $consistencyReset, unitReset: $unitReset) { oldValue, value in
                     if value >= kgs(0) && (value <= calculator.maxFuelWeight || preventionBypass) {
                         return value
+                    } else if oldValue >= kgs(0) && (oldValue <= calculator.maxFuelWeight || preventionBypass) {
+                        return oldValue
                     } else {
                         return min(calculator.maxFuelWeight, calculator.blockFuel)
                     }
@@ -158,7 +170,7 @@ struct AircraftSetup: View {
                 
                 Spacer()
                 
-                MeasurementTextField(prompt: "Trip Fuel in \(prefs.weightUnit.symbol)", value: $calculator.tripFuel, unit: {prefs.weightUnit}) { value in
+                MeasurementTextField(prompt: "Trip Fuel in \(prefs.weightUnit.symbol)", value: $calculator.tripFuel, unit: {prefs.weightUnit}, consistencyReset: $consistencyReset, unitReset: $unitReset) { oldValue, value in
                     value
                 }
                 .foregroundStyle(calculator.tripFuel <= calculator.blockFuel ? Color.secondary : Color.red)
@@ -171,7 +183,7 @@ struct AircraftSetup: View {
                 Spacer()
                 
                 
-                MeasurementTextField(prompt: "Contingency Fuel in \(prefs.weightUnit.symbol)", value: $calculator.contingencyFuel, unit: {prefs.weightUnit}) { value in
+                MeasurementTextField(prompt: "Contingency Fuel in \(prefs.weightUnit.symbol)", value: $calculator.contingencyFuel, unit: {prefs.weightUnit}, consistencyReset: $consistencyReset, unitReset: $unitReset) { oldValue, value in
                     value
                 }
                 .foregroundStyle(calculator.contingencyFuel <= calculator.blockFuel ? Color.secondary : Color.red)
@@ -183,7 +195,7 @@ struct AircraftSetup: View {
                 
                 Spacer()
             
-                MeasurementTextField(prompt: "Taxi Fuel in \(prefs.weightUnit.symbol)", value: $calculator.taxiOut, unit: {prefs.weightUnit}) { value in
+                MeasurementTextField(prompt: "Taxi Fuel in \(prefs.weightUnit.symbol)", value: $calculator.taxiOut, unit: {prefs.weightUnit}, consistencyReset: $consistencyReset, unitReset: $unitReset) { oldValue, value in
                     value
                 }
                 .foregroundStyle(calculator.taxiOut <= calculator.blockFuel ? Color.secondary : Color.red)
@@ -196,7 +208,7 @@ struct AircraftSetup: View {
                 Spacer()
                 
                 
-                MeasurementTextField(prompt: "Alternate Fuel in \(prefs.weightUnit.symbol)", value: $calculator.alternate, unit: {prefs.weightUnit}) { value in
+                MeasurementTextField(prompt: "Alternate Fuel in \(prefs.weightUnit.symbol)", value: $calculator.alternate, unit: {prefs.weightUnit}, consistencyReset: $consistencyReset, unitReset: $unitReset) { oldValue, value in
                     value
                 }
                 .foregroundStyle(calculator.alternate <= calculator.blockFuel ? Color.secondary : Color.red)
@@ -209,7 +221,7 @@ struct AircraftSetup: View {
                 Spacer()
                 
                 
-                MeasurementTextField(prompt: "FinalReserve Fuel in \(prefs.weightUnit.symbol)", value: $calculator.finalReserve, unit: {prefs.weightUnit}) { value in
+                MeasurementTextField(prompt: "FinalReserve Fuel in \(prefs.weightUnit.symbol)", value: $calculator.finalReserve, unit: {prefs.weightUnit}, consistencyReset: $consistencyReset, unitReset: $unitReset) { oldValue, value in
                     value
                 }
                 .foregroundStyle(calculator.finalReserve <= calculator.blockFuel ? Color.secondary : Color.red)
@@ -247,7 +259,7 @@ struct AircraftSetup: View {
     }
     
     var weightsInfosSection: some View {
-        Section("WEIGHT INFORMATION") {
+        Section("CALCULATED INFORMATION") {
             if calculator.tow > calculator.maxTOW {
                 Text("TOW too high! \(prefs.stringFromWeight(calculator.tow)) Estimated / \(prefs.stringFromWeight(calculator.maxTOW, rule: .down)) Allowed")
                     .font(.title3)

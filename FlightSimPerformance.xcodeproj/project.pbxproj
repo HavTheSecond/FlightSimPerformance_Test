@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA0C422B2ADF0B670059DA15 /* DepartureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C422A2ADF0B670059DA15 /* DepartureView.swift */; };
 		DA1502422ADC98300001B0A5 /* LoadSheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1502412ADC98300001B0A5 /* LoadSheets.swift */; };
 		DA2B59D62ADC4DC500A33A73 /* AircraftSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B59D52ADC4DC500A33A73 /* AircraftSetup.swift */; };
 		DA2B59DB2ADC4F1200A33A73 /* PerformanceCalculator in Frameworks */ = {isa = PBXBuildFile; productRef = DA2B59DA2ADC4F1200A33A73 /* PerformanceCalculator */; };
@@ -17,10 +18,12 @@
 		DA3496C32AD47E1500D406C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA3496C22AD47E1500D406C2 /* Assets.xcassets */; };
 		DA3496C62AD47E1500D406C2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA3496C52AD47E1500D406C2 /* Preview Assets.xcassets */; };
 		DA8D4BB42AE187DF00E8A11D /* MeasurementTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D4BB32AE187DF00E8A11D /* MeasurementTextField.swift */; };
+		DA97EAD92AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97EAD82AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift */; };
 		DABFB6F92ADDED8B00F8B211 /* ActualZFWSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABFB6F82ADDED8B00F8B211 /* ActualZFWSelector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA0C422A2ADF0B670059DA15 /* DepartureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartureView.swift; sourceTree = "<group>"; };
 		DA1502412ADC98300001B0A5 /* LoadSheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSheets.swift; sourceTree = "<group>"; };
 		DA2B59D52ADC4DC500A33A73 /* AircraftSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AircraftSetup.swift; sourceTree = "<group>"; };
 		DA2B59DC2ADC710500A33A73 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
@@ -32,6 +35,7 @@
 		DA3496C52AD47E1500D406C2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA3496CC2AD47E9E00D406C2 /* PerformanceCalculator */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PerformanceCalculator; sourceTree = "<group>"; };
 		DA8D4BB32AE187DF00E8A11D /* MeasurementTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementTextField.swift; sourceTree = "<group>"; };
+		DA97EAD82AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeoffRunwayReducedLength.swift; sourceTree = "<group>"; };
 		DABFB6F82ADDED8B00F8B211 /* ActualZFWSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActualZFWSelector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,7 +86,9 @@
 				DA2B59DE2ADC7AD600A33A73 /* SettingsView.swift */,
 				DA1502412ADC98300001B0A5 /* LoadSheets.swift */,
 				DABFB6F82ADDED8B00F8B211 /* ActualZFWSelector.swift */,
+				DA0C422A2ADF0B670059DA15 /* DepartureView.swift */,
 				DA8D4BB32AE187DF00E8A11D /* MeasurementTextField.swift */,
+				DA97EAD82AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift */,
 				DA3496C22AD47E1500D406C2 /* Assets.xcassets */,
 				DA3496C42AD47E1500D406C2 /* Preview Content */,
 			);
@@ -173,11 +179,13 @@
 			files = (
 				DA2B59DF2ADC7AD600A33A73 /* SettingsView.swift in Sources */,
 				DA8D4BB42AE187DF00E8A11D /* MeasurementTextField.swift in Sources */,
+				DA97EAD92AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift in Sources */,
 				DA3496C12AD47E1400D406C2 /* ContentView.swift in Sources */,
 				DA2B59DD2ADC710500A33A73 /* UserPreferences.swift in Sources */,
 				DA3496BF2AD47E1400D406C2 /* FlightSimPerformanceApp.swift in Sources */,
 				DA2B59D62ADC4DC500A33A73 /* AircraftSetup.swift in Sources */,
 				DA1502422ADC98300001B0A5 /* LoadSheets.swift in Sources */,
+				DA0C422B2ADF0B670059DA15 /* DepartureView.swift in Sources */,
 				DABFB6F92ADDED8B00F8B211 /* ActualZFWSelector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

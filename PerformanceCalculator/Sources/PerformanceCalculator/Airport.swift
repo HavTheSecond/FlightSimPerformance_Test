@@ -12,7 +12,12 @@ public struct Airport: Identifiable, Codable, Equatable {
     }
 }
 
-public struct Runway: Codable, Equatable {
+public struct Runway: Codable, Equatable, Hashable {
     public let name: String
     public let length: Measurement<UnitLength>
+    
+    public init(name: String, length: Measurement<UnitLength>) {
+        self.name = name
+        self.length = length
+    }
 }

@@ -95,11 +95,10 @@ public class Calculator: Codable {
         }
     }
     public var selectedDeratePerc: Int {
-        get {
-            data.selectedDeratePerc
-        }
-        set {
-            data.selectedDeratePerc = newValue
+        if case .derate(let percentage) = requestedFlexType {
+            return percentage
+        } else {
+            return 0
         }
     }
     
@@ -388,7 +387,7 @@ public class Calculator: Codable {
     private var tRef: Measurement<UnitTemperature> {
         trefMinDerate - celsius(departureAirport.elevation.ftVal / 500)
     }
-    private var minFlex: Measurement<UnitTemperature> {
+    public var minFlex: Measurement<UnitTemperature> {
         max(tRef, departureTemp + celsius(1))
     }
     private var tMaxFlex: Measurement<UnitTemperature> {
@@ -478,8 +477,8 @@ public class Calculator: Codable {
     }
     
     private var derateAdditionalDistance: Measurement<UnitLength> {
-        if requestedFlexType == .derate {
-            minLength * Double(selectedDeratePerc) / 100
+        if case .derate(let percentage) = requestedFlexType {
+            minLength * Double(percentage) / 100
         } else {
             meters(0)
         }
@@ -499,7 +498,7 @@ public class Calculator: Codable {
         return runwayWetFlexAllowed && runwayContaminatedFlexAllowed && runwayLongEnoughForFlex && minFlex <= rwyMaxFlex
     }
     
-    private var rwyMaxFlex: Measurement<UnitTemperature> {
+    public var rwyMaxFlex: Measurement<UnitTemperature> {
         min(trendMaxFlexTemps.last!, tMaxFlex)
     }
     
@@ -522,7 +521,7 @@ public class Calculator: Codable {
         if flexPermitted {
             if requestedFlexType == .autoFlex {
                 return autoFlexDistance
-            } else if requestedFlexType == .thrustFlex {
+            } else if requestedFlexType == .selectedFlex {
                 return thrustFlexDistance
             } else {
                 return standardDistance
@@ -555,8 +554,12 @@ public class Calculator: Codable {
         }
     }
     
+    public var maxFlexTemp: Measurement<UnitTemperature> {
+        trendMaxFlexTemps.last ?? departureTemp
+    }
+    
     public var departureRunwayRCC: UInt {
-        let necessarySubtraction = (departureRunwayCondition.description == "SNOW COMPACTED" && departureTemp > Measurement(value: -15, unit: .celsius)) ? UInt(1) : 0
+        let necessarySubtraction = (departureRunwayCondition.description == "Snow Compacted" && departureTemp > Measurement(value: -15, unit: .celsius)) ? UInt(1) : 0
         return departureRunwayCondition.rcc - necessarySubtraction
     }
     
@@ -844,6 +847,10 @@ public class Calculator: Codable {
         aircraft.maxLandingWT
     }
     
+    public var canCalculateTrim: Bool {
+        return aircraft.maxNoseUpTrim != nil && aircraft.maxNoseDownTrim != nil && aircraft.zeroTrimCG != nil
+    }
+    
     /// - Returns negative Value if nose down trim
     public var toTrim: Double? {
         guard let noseUp = aircraft.maxNoseUpTrim,
@@ -871,6 +878,21 @@ public class Calculator: Codable {
         return departureWindSpd * trueXWind
     }
     
+    public var departureCrosswindDirection: CrossWindDirection {
+        let diff = rwyDir(name: departureRunway.name) - departureWindDir
+        if diff > degs(180) {
+            return .right
+        } else if diff > degs(0) && diff < degs(180) {
+            return .left
+        } else if diff < degs(0) && diff > degs(-180)  {
+            return .right
+        }  else if diff < degs(-180) {
+            return .left
+        } else {
+            return .no
+        }
+    }
+    
     private func rwyDir(name: String) -> Measurement<UnitAngle> {
         guard name.count > 1 else {return degs(0)}
         let index0 = name.startIndex
@@ -881,18 +903,18 @@ public class Calculator: Codable {
     }
 }
 
-public struct RunwayCondition: Codable, Equatable {
+public struct RunwayCondition: Codable, Equatable, Hashable {
     public let description: String
     public let rcc: UInt
     
-    static public let dry = RunwayCondition(description: "DRY", rcc: 6)
-    static public let wetThin = RunwayCondition(description: "WET / FROST / SLUSH / SNOW  < 3MM", rcc: 5)
-    static public let snowCompacted = RunwayCondition(description: "SNOW COMPACTED", rcc: 4)
-    static public let slipperyWet = RunwayCondition(description: "WET 'SLIPPERY WET' RUNWAY", rcc: 3)
-    static public let snowThick = RunwayCondition(description: "SNOW - WET OR DRY > 3MM", rcc: 3)
-    static public let standingWaterThick = RunwayCondition(description: "STANDING WATER / SLUSH > 3MM", rcc: 2)
-    static public let ice = RunwayCondition(description: "ICE", rcc: 1)
-    static public let waterOnIce = RunwayCondition(description: "WATER OR SNOW ON ICE", rcc: 0)
+    static public let dry = RunwayCondition(description: "Dry", rcc: 6)
+    static public let wetThin = RunwayCondition(description: "Wet / Frost / Slush / Snow  < 3mm", rcc: 5)
+    static public let snowCompacted = RunwayCondition(description: "Snow Compacted", rcc: 4)
+    static public let slipperyWet = RunwayCondition(description: "Wet 'Slippery Wet' Runway", rcc: 3)
+    static public let snowThick = RunwayCondition(description: "Snow - Wet or Dry > 3mm", rcc: 3)
+    static public let standingWaterThick = RunwayCondition(description: "Standing Water / Slush > 3mm", rcc: 2)
+    static public let ice = RunwayCondition(description: "Ice", rcc: 1)
+    static public let waterOnIce = RunwayCondition(description: "Water or Snow on Ice", rcc: 0)
     
     private init(description: String, rcc: UInt) {
         self.description = description
@@ -904,8 +926,8 @@ public enum CabinType: Codable, Equatable {
     case mixed, economyOnly, cargo
 }
 
-public enum RequestedFlexType: Codable, Equatable {
-    case thrustOAT, thrustFlex, autoFlex, derate
+public enum RequestedFlexType: Codable, Equatable, Hashable {
+    case standardThrust, selectedFlex, autoFlex, derate(Int)
 }
 
 public enum BrakingQuality: Codable, Equatable {
@@ -940,7 +962,6 @@ public struct InternalData: Codable, Equatable {
     
     var requestedFlexType = RequestedFlexType.autoFlex
     var selectedFlexTemp = celsius(74)
-    var selectedDeratePerc = 0
     
     var departureAirport: Airport
     var departureRunwayIndex: UInt = 0
@@ -975,4 +996,8 @@ public struct InternalData: Codable, Equatable {
     
     public var passengerWeight = Measurement(value: 175, unit: UnitMass.pounds)
     public var baggageWeight = Measurement(value: 55, unit: UnitMass.pounds)
+}
+
+public enum CrossWindDirection {
+    case left, no, right
 }

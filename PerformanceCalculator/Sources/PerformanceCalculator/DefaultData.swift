@@ -28,7 +28,7 @@ public struct DefaultData {
             Flap(name: "1+F", toPerfImpactPercent: 10, landPerfImpactPercent: 1.2),
             Flap(name: "2", toPerfImpactPercent: 0.0000001, landPerfImpactPercent: 1.15),
             Flap(name: "3", toPerfImpactPercent: -5, landPerfImpactPercent: 1.1),
-            Flap(name: "Full", toPerfImpactPercent: -5, landPerfImpactPercent: 0.0000001)
+            Flap(name: "Full", toPerfImpactPercent: nil, landPerfImpactPercent: 0.0000001)
         ]
         
         let autobrakes = ["Low", "Med", "Max Man"]
@@ -124,14 +124,16 @@ extension Measurement<UnitSpeed> {
 
 extension Double {
     public func roundedToTenths() -> Double {
-        let tenTimes = self * 10
-        let tenTimesRounded = tenTimes.rounded()
-        return tenTimesRounded / 10
+        roundTo(10)
     }
     
     public func roundedToHundreths() -> Double {
-        let hundredTimes = self * 100
-        let hundredTimesRounded = hundredTimes.rounded()
-        return hundredTimesRounded / 100
+        roundTo(100)
+    }
+    
+    public func roundTo(_ fraction: Double) -> Double {
+        let multipleTimes = self * fraction
+        let multipleTimesRounded = multipleTimes.rounded()
+        return multipleTimesRounded / fraction
     }
 }

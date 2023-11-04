@@ -302,7 +302,7 @@ final class PerformanceCalculatorTests: XCTestCase {
         calculator.taxiOut = kgs(227)
         calculator.useStandardEO = true
         calculator.revisedOEW = nil
-        calculator.requestedFlexType = .thrustOAT
+        calculator.requestedFlexType = .standardThrust
        
         XCTAssertEqual(calculator.requiredDistance.meterVal.rounded(), 1959)
         XCTAssertFalse(calculator.flexPermitted)
@@ -329,7 +329,7 @@ final class PerformanceCalculatorTests: XCTestCase {
         calculator.taxiOut = kgs(227)
         calculator.useStandardEO = true
         calculator.revisedOEW = nil
-        calculator.requestedFlexType = .thrustOAT
+        calculator.requestedFlexType = .standardThrust
         
         XCTAssert(calculator.flexPermitted)
         XCTAssert(calculator.runwayLongEnoughForFlex)
@@ -342,7 +342,7 @@ final class PerformanceCalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.calculatedFlexTemp?.celsiusVal.rounded(.down), 52)
         XCTAssertEqual(calculator.requiredDistance.meterVal.rounded(), 2788)
         XCTAssertEqual(calculator.v1DifferenceToVR.kntValue.rounded(), -16)
-        calculator.requestedFlexType = .thrustFlex
+        calculator.requestedFlexType = .selectedFlex
         calculator.selectedFlexTemp = celsius(37)
         XCTAssertEqual(calculator.requiredDistance.meterVal.rounded(), 2111)
         XCTAssertEqual(calculator.v1DifferenceToVR.kntValue.rounded(), -2)

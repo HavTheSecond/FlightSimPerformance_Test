@@ -30,11 +30,22 @@ struct ContentView: View {
                 switch selectedContent {
                     case .aircraftSetup:
                         AircraftSetup(calculator: calculator)
+                    case .departure:
+                        DepartureView(calculator: calculator)
                 }
             }
             .toolbar {
                 Button("Settings", systemImage: "gear") {
                     settings = true
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Picker("Menu", selection: $selectedContent) {
+                        ForEach(SelectedContent.allCases, id: \.self) { content in
+                            Text(content.rawValue)
+                        }
+                    }
                 }
             }
         }
@@ -50,8 +61,9 @@ struct ContentView: View {
     }
 }
 
-enum SelectedContent {
-    case aircraftSetup
+enum SelectedContent: String, CaseIterable {
+    case aircraftSetup = "Aircraft Setup"
+    case departure = "Departure / Take-Off"
 }
 
 #Preview {
