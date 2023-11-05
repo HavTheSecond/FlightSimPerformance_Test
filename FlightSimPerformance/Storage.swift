@@ -315,7 +315,7 @@ class Storage {
         
         for i in 0..<2 {
             let derateName = values[startIndex + 2*i]
-            let deratePerc = UInt(values[startIndex + 2*i + 1]) ?? 0
+            let deratePerc = Int(values[startIndex + 2*i + 1]) ?? 0
             
             if derateName == "" || deratePerc == 0 {
                 break
@@ -324,7 +324,7 @@ class Storage {
                     derates = [Derate]()
                 }
                 
-                derates?.append(Derate(name: derateName, minusPercent: deratePerc))
+                derates?.append(Derate(name: derateName, minusPercent: UInt(-deratePerc)))
             }
         }
         

@@ -233,11 +233,11 @@ struct DepartureView: View {
                 }
                 ForEach(calculator.aircraft.derates ?? [], id: \.self) { derate in
                     Text("\(derate.name) (-\(derate.minusPercent)%)")
-                        .tag(RequestedFlexType.derate(-Int(derate.minusPercent)))
+                        .tag(RequestedFlexType.derate(Int(derate.minusPercent)))
                 }
                 if let bump = calculator.aircraft.bump {
                     Text("\(bump.name) (+\(bump.plusPercent)%)")
-                        .tag(RequestedFlexType.derate(Int(bump.plusPercent)))
+                        .tag(RequestedFlexType.derate(-Int(bump.plusPercent)))
                 }
             }
             .onChange(of: calculator.flexPermitted) { oldValue, newValue in
