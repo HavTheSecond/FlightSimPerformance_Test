@@ -13,13 +13,6 @@ struct AircraftSetup: View {
     @State private var aircraftSelection: Int = 0
     
     @State private var selectedPax = 0
-    @State private var selectedCargo = 0
-    @State private var blockFuel = 0
-    @State private var tripFuel = 0
-    @State private var contingencyFuel = 0
-    @State private var taxiFuel = 0
-    @State private var alternate = 0
-    @State private var finalReserve = 0
     @State private var useStdOEW = true
     @State private var setOEW = 0
     
@@ -285,6 +278,10 @@ struct AircraftSetup: View {
         }
     }
     
+    var fuelSum: Measurement<UnitMass> {
+        calculator.tripFuel + calculator.contingencyFuel + calculator.taxiOut + calculator.alternate + calculator.finalReserve
+    }
+    
     var weightsInfosSection: some View {
         Section("CALCULATED INFORMATION") {
             if calculator.tow > calculator.maxTOW {
@@ -293,9 +290,8 @@ struct AircraftSetup: View {
                     .foregroundStyle(.red)
             }
             
-            let sum = tripFuel + contingencyFuel + taxiFuel + alternate + finalReserve
-            if sum > blockFuel {
-                Text("Fuel Usage too high! \(sum.formatted()) \(prefs.weightUnit.symbol) Used / \(prefs.stringFromWeight(calculator.blockFuel, rule: .down)) Available")
+            if fuelSum > calculator.blockFuel {
+                Text("Fuel Usage too high! \(prefs.stringFromWeight(fuelSum)) Used / \(prefs.stringFromWeight(calculator.blockFuel, rule: .down)) Available")
                     .font(.title3)
                     .foregroundStyle(.red)
             }
