@@ -479,15 +479,21 @@ struct DepartureView: View {
             }
             
             if !calculator.runwayLongEnoughForFlex {
-                Text("Flex not allowed: Runway too short")
+                Text("Flex not allowed: Runway too short (Min RW Length: \(prefs.stringFromRWLength(calculator.minRunwayLengthForFlex, rule: .up)))")
             }
             
             if calculator.runwayContaminatedFlexAllowed && calculator.runwayWetFlexAllowed && calculator.runwayLongEnoughForFlex && !calculator.flexPermitted {
-                Text("Flex not allowed: OAT too hot")
+                Text("Flex not allowed: Temperatures don't align (\(tempAlertString))")
             }
         }
         .font(.title3)
         .foregroundStyle(.red)
+    }
+    
+    var tempAlertString: String {
+        let min = "Min Flex: \(calculator.minFlex.converted(to: prefs.tempUnit).value.rounded(.down).formatted()) \(prefs.tempUnit.symbol)"
+        let max = "Max Flex: \(calculator.rwyMaxFlex.converted(to: prefs.tempUnit).value.rounded(.down).formatted()) \(prefs.tempUnit.symbol)"
+        return min + ", " + max
     }
 }
 

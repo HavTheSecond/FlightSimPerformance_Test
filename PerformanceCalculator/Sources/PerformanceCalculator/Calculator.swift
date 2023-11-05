@@ -489,9 +489,12 @@ public class Calculator: Codable {
     }
     
     public var runwayLongEnoughForFlex: Bool {
+        departureRunwayLength >= minRunwayLengthForFlex
+    }
+    
+    public var minRunwayLengthForFlex: Measurement<UnitLength> {
         let alternativeMin = growthList[3] * oatPerc / 100
-        
-        return departureRunwayLength >= minLength && departureRunwayLength >= alternativeMin
+        return max(minLength, alternativeMin)
     }
     
     public var flexPermitted: Bool {
