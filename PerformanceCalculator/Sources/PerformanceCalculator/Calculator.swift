@@ -449,7 +449,7 @@ public class Calculator: Codable {
     private var minLength: Measurement<UnitLength> {
         let flapCalc = perfTotal + perfTotal * aircraft.flaps[takeoffFlapsIndex].toPerfImpactPercent! / 100
         let wind = departureHeadOrTailWind
-        let vrISA = Double(aircraft.vrISA)
+        let vrISA = aircraft.vrISA.kntValue
         
         let windCorrHeadwind = flapCalc - (flapCalc * wind.kntValue / (vrISA * 2))
         let windCorrTailwind = flapCalc - (flapCalc * wind.kntValue * 1.5 / vrISA)

@@ -19,6 +19,9 @@
 		DA3496C62AD47E1500D406C2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA3496C52AD47E1500D406C2 /* Preview Assets.xcassets */; };
 		DA8D4BB42AE187DF00E8A11D /* MeasurementTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D4BB32AE187DF00E8A11D /* MeasurementTextField.swift */; };
 		DA97EAD92AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97EAD82AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift */; };
+		DA97EADC2AF64B5F00FB68D4 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = DA97EADB2AF64B5F00FB68D4 /* SwiftCSV */; };
+		DA97EAE02AF64B8900FB68D4 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97EADF2AF64B8900FB68D4 /* Storage.swift */; };
+		DA97EAE42AF650D300FB68D4 /* Aircraft.csv in Resources */ = {isa = PBXBuildFile; fileRef = DA97EAE32AF650D300FB68D4 /* Aircraft.csv */; };
 		DABFB6F92ADDED8B00F8B211 /* ActualZFWSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABFB6F82ADDED8B00F8B211 /* ActualZFWSelector.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +39,8 @@
 		DA3496CC2AD47E9E00D406C2 /* PerformanceCalculator */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PerformanceCalculator; sourceTree = "<group>"; };
 		DA8D4BB32AE187DF00E8A11D /* MeasurementTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementTextField.swift; sourceTree = "<group>"; };
 		DA97EAD82AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeoffRunwayReducedLength.swift; sourceTree = "<group>"; };
+		DA97EADF2AF64B8900FB68D4 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		DA97EAE32AF650D300FB68D4 /* Aircraft.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Aircraft.csv; sourceTree = "<group>"; };
 		DABFB6F82ADDED8B00F8B211 /* ActualZFWSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActualZFWSelector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -45,6 +50,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA2B59DB2ADC4F1200A33A73 /* PerformanceCalculator in Frameworks */,
+				DA97EADC2AF64B5F00FB68D4 /* SwiftCSV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +95,8 @@
 				DA0C422A2ADF0B670059DA15 /* DepartureView.swift */,
 				DA8D4BB32AE187DF00E8A11D /* MeasurementTextField.swift */,
 				DA97EAD82AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift */,
+				DA97EADF2AF64B8900FB68D4 /* Storage.swift */,
+				DA97EAE32AF650D300FB68D4 /* Aircraft.csv */,
 				DA3496C22AD47E1500D406C2 /* Assets.xcassets */,
 				DA3496C42AD47E1500D406C2 /* Preview Content */,
 			);
@@ -117,11 +125,13 @@
 			buildRules = (
 			);
 			dependencies = (
+				DA97EADE2AF64B6900FB68D4 /* PBXTargetDependency */,
 				DA2B59D82ADC4F0A00A33A73 /* PBXTargetDependency */,
 			);
 			name = FlightSimPerformance;
 			packageProductDependencies = (
 				DA2B59DA2ADC4F1200A33A73 /* PerformanceCalculator */,
+				DA97EADB2AF64B5F00FB68D4 /* SwiftCSV */,
 			);
 			productName = FlightSimPerformance;
 			productReference = DA3496BB2AD47E1400D406C2 /* FlightSimPerformance.app */;
@@ -151,6 +161,9 @@
 				Base,
 			);
 			mainGroup = DA3496B22AD47E1400D406C2;
+			packageReferences = (
+				DA97EADA2AF64B5E00FB68D4 /* XCRemoteSwiftPackageReference "SwiftCSV" */,
+			);
 			productRefGroup = DA3496BC2AD47E1400D406C2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -167,6 +180,7 @@
 			files = (
 				DA3496C62AD47E1500D406C2 /* Preview Assets.xcassets in Resources */,
 				DA3496C32AD47E1500D406C2 /* Assets.xcassets in Resources */,
+				DA97EAE42AF650D300FB68D4 /* Aircraft.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA2B59DF2ADC7AD600A33A73 /* SettingsView.swift in Sources */,
+				DA97EAE02AF64B8900FB68D4 /* Storage.swift in Sources */,
 				DA8D4BB42AE187DF00E8A11D /* MeasurementTextField.swift in Sources */,
 				DA97EAD92AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift in Sources */,
 				DA3496C12AD47E1400D406C2 /* ContentView.swift in Sources */,
@@ -196,6 +211,10 @@
 		DA2B59D82ADC4F0A00A33A73 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = DA2B59D72ADC4F0A00A33A73 /* PerformanceCalculator */;
+		};
+		DA97EADE2AF64B6900FB68D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = DA97EADD2AF64B6900FB68D4 /* SwiftCSV */;
 		};
 /* End PBXTargetDependency section */
 
@@ -400,6 +419,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		DA97EADA2AF64B5E00FB68D4 /* XCRemoteSwiftPackageReference "SwiftCSV" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swiftcsv/SwiftCSV.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		DA2B59D72ADC4F0A00A33A73 /* PerformanceCalculator */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -408,6 +438,16 @@
 		DA2B59DA2ADC4F1200A33A73 /* PerformanceCalculator */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PerformanceCalculator;
+		};
+		DA97EADB2AF64B5F00FB68D4 /* SwiftCSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA97EADA2AF64B5E00FB68D4 /* XCRemoteSwiftPackageReference "SwiftCSV" */;
+			productName = SwiftCSV;
+		};
+		DA97EADD2AF64B6900FB68D4 /* SwiftCSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA97EADA2AF64B5E00FB68D4 /* XCRemoteSwiftPackageReference "SwiftCSV" */;
+			productName = SwiftCSV;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

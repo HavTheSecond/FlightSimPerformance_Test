@@ -4,10 +4,13 @@ import PerformanceCalculator
 struct AircraftSetup: View {
     @Bindable var calculator: Calculator
     @Environment(UserPreferences.self) var prefs
+    @Environment(Storage.self) var storage
     
     var aircraft: Aircraft {
         calculator.aircraft
     }
+    
+    @State private var aircraftSelection: Int = 0
     
     @State private var selectedPax = 0
     @State private var selectedCargo = 0
@@ -53,6 +56,30 @@ struct AircraftSetup: View {
     
     var infosSection: some View {
         Section("INFOS") {
+            Picker("Aircraft Selection", selection: $aircraftSelection) {
+                ForEach(storage.aircraft.enumerated().map({$0}), id: \.offset) {index, aircraft in
+                    Text("\(aircraft.name) (\(aircraft.typeCheck))")
+                        .tag(index)
+                }
+            }
+            .onAppear {
+                aircraftSelection = storage.aircraft.firstIndex(where: { aircraft in
+                    aircraft.name == calculator.aircraft.name
+                }) ?? 0
+                if storage.aircraft.count > 0 {
+                    calculator.aircraft = storage.aircraft[aircraftSelection]
+                } else {
+                    calculator.aircraft = DefaultData.a20n
+                }
+            }
+            .onChange(of: aircraftSelection) { oldValue, newValue in
+                if storage.aircraft.count > 0 {
+                    calculator.aircraft = storage.aircraft[aircraftSelection]
+                } else {
+                    calculator.aircraft = DefaultData.a20n
+                }
+            }
+            
             HStack {
                 Text(aircraft.name)
                     .font(.title)

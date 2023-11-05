@@ -10,7 +10,7 @@ public struct Aircraft: Codable, Equatable {
 
     // MARK: Performance
 
-    public let vrISA: UInt
+    public let vrISA: Measurement<UnitSpeed>
 
     public let toPerformances: [MeasuredPerformance]
     public let landPerformances: [MeasuredPerformance]
@@ -107,6 +107,59 @@ public struct Aircraft: Codable, Equatable {
     public let minStandardLandingFlapsIndex: UInt
 
     public let rccFlexLimit: UInt
+    
+    public init(name: String, approachDetails: String, performanceSummary: String, typeCheck: String, vrISA: Measurement<UnitSpeed>, toPerformances: [MeasuredPerformance], landPerformances: [MeasuredPerformance], flaps: [Flap], isaIncrease_ISAPlusRate: ISAIncrease_ISAPlusRate, lowestFlexName: String, maxTempPlusISA: UInt, derates: [Derate]?, bump: Bump?, runwayLimitFirstFlaps: RunwayLimit?, maxApproachSpeedAddition: UInt, headwindDivisionSpeedAddition: UInt, autobrakes: [String], engines: Engines, oew: Measurement<UnitMass>, maxZFW: Measurement<UnitMass>, maxTOW: Measurement<UnitMass>, maxLandingWT: Measurement<UnitMass>, standardTaxiFuel: Measurement<UnitMass>, maxNoseUpTrim: Trim?, zeroTrimCG: Double?, maxNoseDownTrim: Trim?, firstClass: UInt, business: UInt, economy: UInt, allEconomyPaxNo: UInt, frontCargo: Measurement<UnitMass>, rearCargo: Measurement<UnitMass>, selectedMaxPayload: Measurement<UnitMass>?, tanks: [Tank], minContingencyFuelFor15Min: Measurement<UnitMass>, minFinalReserve: Measurement<UnitMass>, maxWindTOLand: Measurement<UnitSpeed>, maxCrosswind: Measurement<UnitSpeed>, maxTailWindTO: Measurement<UnitSpeed>, maxTailWindLand: Measurement<UnitSpeed>, maxGlidepath: Measurement<UnitAngle>, maxCrosswindAutoland: Measurement<UnitSpeed>, maxTailwindAutoland: Measurement<UnitSpeed>, maxHeadwindAutoland: Measurement<UnitSpeed>, maxGlidepathAutoland: Measurement<UnitAngle>, maxOperatingAltitude: Measurement<UnitLength>, standardMaximumAirfieldAltitude: Measurement<UnitLength>, maxTailwindSteepApproach: Measurement<UnitSpeed>?, minStandardLandingFlapsIndex: UInt, rccFlexLimit: UInt) {
+        self.name = name
+        self.approachDetails = approachDetails
+        self.performanceSummary = performanceSummary
+        self.typeCheck = typeCheck
+        self.vrISA = vrISA
+        self.toPerformances = toPerformances
+        self.landPerformances = landPerformances
+        self.flaps = flaps
+        self.isaIncrease_ISAPlusRate = isaIncrease_ISAPlusRate
+        self.lowestFlexName = lowestFlexName
+        self.maxTempPlusISA = maxTempPlusISA
+        self.derates = derates
+        self.bump = bump
+        self.runwayLimitFirstFlaps = runwayLimitFirstFlaps
+        self.maxApproachSpeedAddition = maxApproachSpeedAddition
+        self.headwindDivisionSpeedAddition = headwindDivisionSpeedAddition
+        self.autobrakes = autobrakes
+        self.engines = engines
+        self.oew = oew
+        self.maxZFW = maxZFW
+        self.maxTOW = maxTOW
+        self.maxLandingWT = maxLandingWT
+        self.standardTaxiFuel = standardTaxiFuel
+        self.maxNoseUpTrim = maxNoseUpTrim
+        self.zeroTrimCG = zeroTrimCG
+        self.maxNoseDownTrim = maxNoseDownTrim
+        self.firstClass = firstClass
+        self.business = business
+        self.economy = economy
+        self.allEconomyPaxNo = allEconomyPaxNo
+        self.frontCargo = frontCargo
+        self.rearCargo = rearCargo
+        self.selectedMaxPayload = selectedMaxPayload
+        self.tanks = tanks
+        self.minContingencyFuelFor15Min = minContingencyFuelFor15Min
+        self.minFinalReserve = minFinalReserve
+        self.maxWindTOLand = maxWindTOLand
+        self.maxCrosswind = maxCrosswind
+        self.maxTailWindTO = maxTailWindTO
+        self.maxTailWindLand = maxTailWindLand
+        self.maxGlidepath = maxGlidepath
+        self.maxCrosswindAutoland = maxCrosswindAutoland
+        self.maxTailwindAutoland = maxTailwindAutoland
+        self.maxHeadwindAutoland = maxHeadwindAutoland
+        self.maxGlidepathAutoland = maxGlidepathAutoland
+        self.maxOperatingAltitude = maxOperatingAltitude
+        self.standardMaximumAirfieldAltitude = standardMaximumAirfieldAltitude
+        self.maxTailwindSteepApproach = maxTailwindSteepApproach
+        self.minStandardLandingFlapsIndex = minStandardLandingFlapsIndex
+        self.rccFlexLimit = rccFlexLimit
+    }
 }
 
 public struct MeasuredPerformance: Codable, Equatable {
@@ -149,37 +202,87 @@ public struct Engines: Codable, Equatable {
     public let tMaxFlex5000AltEngineIce: ReferenceTemperatures
     public let toAltPercADJWT2: TOAltitudeOffsets
     public let landingWeight: LandingWeights
+    
+    public init(name: String, tRefSLEngineIce: ReferenceTemperatures, tRef5000EngineIce: ReferenceTemperatures, tMaxFlexSLEngineIce: ReferenceTemperatures, tMaxFlex5000EngineIce: ReferenceTemperatures, altName: String, altEnginePerfPercent: UInt?, altEngineAltCorrPercent: UInt?, altEngineISARateIncrease: UInt, altEngineOEW: Measurement<UnitMass>, tRefSLAltEngineIce: ReferenceTemperatures, tRef5000AltEngineIce: ReferenceTemperatures, tMaxFlexSLAltEngineIce: ReferenceTemperatures, tMaxFlex5000AltEngineIce: ReferenceTemperatures, toAltPercADJWT2: TOAltitudeOffsets, landingWeight: LandingWeights) {
+        self.name = name
+        self.tRefSLEngineIce = tRefSLEngineIce
+        self.tRef5000EngineIce = tRef5000EngineIce
+        self.tMaxFlexSLEngineIce = tMaxFlexSLEngineIce
+        self.tMaxFlex5000EngineIce = tMaxFlex5000EngineIce
+        self.altName = altName
+        self.altEnginePerfPercent = altEnginePerfPercent
+        self.altEngineAltCorrPercent = altEngineAltCorrPercent
+        self.altEngineISARateIncrease = altEngineISARateIncrease
+        self.altEngineOEW = altEngineOEW
+        self.tRefSLAltEngineIce = tRefSLAltEngineIce
+        self.tRef5000AltEngineIce = tRef5000AltEngineIce
+        self.tMaxFlexSLAltEngineIce = tMaxFlexSLAltEngineIce
+        self.tMaxFlex5000AltEngineIce = tMaxFlex5000AltEngineIce
+        self.toAltPercADJWT2 = toAltPercADJWT2
+        self.landingWeight = landingWeight
+    }
 }
 
 public struct ISAIncrease_ISAPlusRate: Codable, Equatable {
     let increase: Measurement<UnitTemperature>
     let rate: UInt
+    
+    public init(increase: Measurement<UnitTemperature>, rate: UInt) {
+        self.increase = increase
+        self.rate = rate
+    }
 }
 
 public struct Flap: Codable, Equatable, Hashable {
     public let name: String
     public let toPerfImpactPercent: Double?
     public let landPerfImpactPercent: Double
+    
+    public init(name: String, toPerfImpactPercent: Double?, landPerfImpactPercent: Double) {
+        self.name = name
+        self.toPerfImpactPercent = toPerfImpactPercent
+        self.landPerfImpactPercent = landPerfImpactPercent
+    }
 }
 
 public struct Derate: Codable, Equatable, Hashable {
     public let name: String
     public let minusPercent: UInt
+    
+    public init(name: String, minusPercent: UInt) {
+        self.name = name
+        self.minusPercent = minusPercent
+    }
 }
 
 public struct Bump: Codable, Equatable, Hashable {
     public let name: String
     public let plusPercent: UInt
+    
+    public init(name: String, plusPercent: UInt) {
+        self.name = name
+        self.plusPercent = plusPercent
+    }
 }
 
 public struct RunwayLimit: Codable, Equatable {
     let warning: String
-    let lengthInFeet: UInt
+    let length: Measurement<UnitLength>
+    
+    public init(warning: String, length: Measurement<UnitLength>) {
+        self.warning = warning
+        self.length = length
+    }
 }
 
 public struct Trim: Codable, Equatable {
     public let cg: Double
     public let trimTenths: UInt
+    
+    public init(cg: Double, trimTenths: UInt) {
+        self.cg = cg
+        self.trimTenths = trimTenths
+    }
 }
 
 public struct Tank: Codable, Equatable {
@@ -194,14 +297,29 @@ public struct Tank: Codable, Equatable {
 public struct ReferenceTemperatures: Codable, Equatable {
     let on: Measurement<UnitTemperature>
     let off: Measurement<UnitTemperature>
+    
+    public init(on: Measurement<UnitTemperature>, off: Measurement<UnitTemperature>) {
+        self.on = on
+        self.off = off
+    }
 }
 
 public struct TOAltitudeOffsets: Codable, Equatable {
     let below: Int
     let above: Int
+    
+    public init(below: Int, above: Int) {
+        self.below = below
+        self.above = above
+    }
 }
 
 public struct LandingWeights: Codable, Equatable {
     let weight: Measurement<UnitMass>
     let percADJ: Int
+    
+    public init(weight: Measurement<UnitMass>, percADJ: Int) {
+        self.weight = weight
+        self.percADJ = percADJ
+    }
 }
