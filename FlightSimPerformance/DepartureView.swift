@@ -247,6 +247,13 @@ struct DepartureView: View {
                     }
                 }
             }
+            .onAppear {
+                if !calculator.flexPermitted {
+                    if calculator.requestedFlexType == .autoFlex || calculator.requestedFlexType == .selectedFlex {
+                        calculator.requestedFlexType = .standardThrust
+                    }
+                }
+            }
             
             selectToTemp
             
