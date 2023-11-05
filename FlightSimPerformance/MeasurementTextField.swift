@@ -66,6 +66,7 @@ struct MeasurementTextField<UnitType>: View where UnitType: Dimension {
                 setUp()
             }
             .onChange(of: focused, { oldValue, newValue in
+                value = consistencyFix(value, valueAsMeasurement)
                 setUp()
             })
             .onChange(of: consistencyReset) { oldValue, newValue in
