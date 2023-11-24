@@ -321,28 +321,31 @@ struct DepartureView: View {
                 Slider(value: $selectedFlex, in: calculator.minFlex.converted(to: prefs.tempUnit).value...Double(maxFlexTemp)) { editing in
                     if !editing {
                         calculator.selectedFlexTemp = Measurement(value: selectedFlex.rounded(), unit: prefs.tempUnit)
-                        calculator.selectedFlexTemp = min(calculator.selectedFlexTemp, calculator.rwyMaxFlex)
+                        calculator.selectedFlexTemp = min(calculator.selectedFlexTemp, calculator.rwyMaxFlex).rounded(.down, type: prefs.tempUnit)
+                        calculator.selectedFlexTemp = max(calculator.selectedFlexTemp, calculator.minFlex).rounded(.up, type: prefs.tempUnit)
+                        selectedFlex = calculator.selectedFlexTemp.converted(to: prefs.tempUnit).value
                     }
                 }
                 .onAppear {
-                    calculator.selectedFlexTemp = min(calculator.selectedFlexTemp, calculator.maxFlexTemp)
-                    calculator.selectedFlexTemp = max(calculator.selectedFlexTemp, calculator.minFlex)
+                    calculator.selectedFlexTemp = min(calculator.selectedFlexTemp, calculator.rwyMaxFlex).rounded(.down, type: prefs.tempUnit)
+                    calculator.selectedFlexTemp = max(calculator.selectedFlexTemp, calculator.minFlex).rounded(.up, type: prefs.tempUnit)
                     selectedFlex = calculator.selectedFlexTemp.converted(to: prefs.tempUnit).value
                 }
                 .onChange(of: calculator.selectedFlexTemp) { _, _ in
-                    calculator.selectedFlexTemp = min(calculator.selectedFlexTemp, calculator.maxFlexTemp)
-                    calculator.selectedFlexTemp = max(calculator.selectedFlexTemp, calculator.minFlex)
+                    calculator.selectedFlexTemp = min(calculator.selectedFlexTemp, calculator.rwyMaxFlex).rounded(.down, type: prefs.tempUnit)
+                    calculator.selectedFlexTemp = max(calculator.selectedFlexTemp, calculator.minFlex).rounded(.up, type: prefs.tempUnit)
                     selectedFlex = calculator.selectedFlexTemp.converted(to: prefs.tempUnit).value
                 }
-                .onChange(of: calculator.maxFlexTemp, { _, _ in
-                    calculator.selectedFlexTemp = min(calculator.selectedFlexTemp, calculator.maxFlexTemp)
+                .onChange(of: calculator.rwyMaxFlex, { _, _ in
+                    calculator.selectedFlexTemp = min(calculator.selectedFlexTemp, calculator.rwyMaxFlex).rounded(.down, type: prefs.tempUnit)
                     selectedFlex = calculator.selectedFlexTemp.converted(to: prefs.tempUnit).value
                 })
                 .onChange(of: prefs.tempUnit) { _, _ in
+                    calculator.selectedFlexTemp = calculator.selectedFlexTemp.rounded(type: prefs.tempUnit)
                     selectedFlex = calculator.selectedFlexTemp.converted(to: prefs.tempUnit).value
                 }
                 .onChange(of: calculator.minFlex) { _, _ in
-                    calculator.selectedFlexTemp = max(calculator.selectedFlexTemp, calculator.minFlex)
+                    calculator.selectedFlexTemp = max(calculator.selectedFlexTemp, calculator.minFlex).rounded(.up, type: prefs.tempUnit)
                     selectedFlex = calculator.selectedFlexTemp.converted(to: prefs.tempUnit).value
                 }
             }
@@ -399,6 +402,7 @@ struct DepartureView: View {
     
     var differenceText: String {
         let speedValue = calculator.v1DifferenceToVR.converted(to: prefs.speedUnit).value.rounded(.down)
+        guard speedValue != 0 else {return ""}
         let speedValueStr = abs(speedValue).formatted()
         let negative = speedValue < 0
         let speedUnit = prefs.speedUnit.symbol
@@ -454,7 +458,7 @@ struct DepartureView: View {
         
         let trimUp = trim > 0
         let trimDn = trim < 0
-        var trimStr = abs(trim).roundedToTenths().formatted()
+        var trimStr = String(abs(trim).roundedToTenths())
         
         if trimUp {
             trimStr += " UP"

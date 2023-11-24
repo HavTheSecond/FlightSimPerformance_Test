@@ -137,3 +137,21 @@ extension Double {
         return multipleTimesRounded / fraction
     }
 }
+
+extension Measurement where UnitType: Dimension {
+    public func rounded(type: UnitType) -> Measurement<UnitType> {
+        return Measurement(value: converted(to: type).value.rounded(), unit: type).converted(to: self.unit)
+    }
+    
+    public func rounded(_ rule: FloatingPointRoundingRule, type: UnitType) -> Measurement<UnitType> {
+        return Measurement(value: converted(to: type).value.rounded(rule), unit: type).converted(to: self.unit)
+    }
+    
+    public func rounded() -> Measurement<UnitType> {
+        rounded(type: self.unit)
+    }
+    
+    public func rounded(_ rule: FloatingPointRoundingRule) -> Measurement<UnitType> {
+        rounded(rule, type: self.unit)
+    }
+}

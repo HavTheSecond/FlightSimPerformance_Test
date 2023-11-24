@@ -91,7 +91,7 @@ public class Calculator: Codable {
             data.selectedFlexTemp
         }
         set {
-            data.selectedFlexTemp = newValue
+            data.selectedFlexTemp = newValue.rounded(.down)
         }
     }
     public var selectedDeratePerc: Int {
@@ -502,7 +502,7 @@ public class Calculator: Codable {
     }
     
     public var rwyMaxFlex: Measurement<UnitTemperature> {
-        min(trendMaxFlexTemps.last!, tMaxFlex)
+        min(trendMaxFlexTemps.last!, tMaxFlex).rounded(.down)
     }
     
     private var trendFlexRequiredDistances: [Measurement<UnitLength>] {
@@ -557,7 +557,7 @@ public class Calculator: Codable {
         }
     }
     
-    public var maxFlexTemp: Measurement<UnitTemperature> {
+    var maxFlexTemp: Measurement<UnitTemperature> {
         trendMaxFlexTemps.last ?? departureTemp
     }
     
