@@ -401,4 +401,52 @@ class Storage {
     private func loadDefaultAircraft() {
         aircraft.append(DefaultData.a20n)
     }
+    
+    func importAirports() {
+        do {
+            guard let csv = try CSV<Named>(name: "Airports.csv", delimiter: .semicolon) else {
+                loadDefaultAirport()
+                return
+            }
+            try csv.enumerateAsArray(startAt: 1, rowLimit: nil) { [self] values in
+                guard let newAirport = loadAirport(values) else {return}
+                airports.append(newAirport)
+            }
+        } catch {
+            if let e = error as? CSVParseError {
+                Storage.logger.warning("Invalid CSV: \(e.localizedDescription)")
+            } else {
+                Storage.logger.warning("Couldn't load file: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func loadAirport(_ values: [String]) -> Airport? {
+        guard values.count > 18,
+              values[0] != "" else {return nil}
+        
+        let icao = values[0]
+        let name = values[1]
+        
+        guard let elevation = Double(values[2]) else {return nil}
+        
+        var runways = [Runway]()
+        
+        let startIndex = 3
+        for i in 0..<8 {
+            let addition = i * 2
+            let name = values[startIndex + addition]
+            let length = Double(values[startIndex + addition + 1]) ?? 0
+            
+            guard name != "" && length != 0 else { continue }
+            
+            runways.append(Runway(name: name, length: ft(length)))
+        }
+        
+        return Airport(icao: icao, name: name, elevation: ft(elevation), runways: runways)
+    }
+    
+    private func loadDefaultAirport() {
+        airports.append(DefaultData.eddf)
+    }
 }

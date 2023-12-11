@@ -8,6 +8,7 @@ struct FlightSimPerformanceApp: App {
     
     init() {
         storage.importAircraft()
+        storage.importAirports()
     }
     
     var body: some Scene {

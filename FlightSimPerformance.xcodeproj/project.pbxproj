@@ -21,8 +21,9 @@
 		DA97EAD92AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97EAD82AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift */; };
 		DA97EADC2AF64B5F00FB68D4 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = DA97EADB2AF64B5F00FB68D4 /* SwiftCSV */; };
 		DA97EAE02AF64B8900FB68D4 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97EADF2AF64B8900FB68D4 /* Storage.swift */; };
-		DA97EAE42AF650D300FB68D4 /* Aircraft.csv in Resources */ = {isa = PBXBuildFile; fileRef = DA97EAE32AF650D300FB68D4 /* Aircraft.csv */; };
 		DABFB6F92ADDED8B00F8B211 /* ActualZFWSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABFB6F82ADDED8B00F8B211 /* ActualZFWSelector.swift */; };
+		DABFC1AF2B27B0EB00E5CCFD /* Aircraft.csv in Resources */ = {isa = PBXBuildFile; fileRef = DABFC1AD2B27B0EB00E5CCFD /* Aircraft.csv */; };
+		DABFC1B02B27B0EB00E5CCFD /* Airports.csv in Resources */ = {isa = PBXBuildFile; fileRef = DABFC1AE2B27B0EB00E5CCFD /* Airports.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,8 +41,9 @@
 		DA8D4BB32AE187DF00E8A11D /* MeasurementTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementTextField.swift; sourceTree = "<group>"; };
 		DA97EAD82AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeoffRunwayReducedLength.swift; sourceTree = "<group>"; };
 		DA97EADF2AF64B8900FB68D4 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		DA97EAE32AF650D300FB68D4 /* Aircraft.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Aircraft.csv; sourceTree = "<group>"; };
 		DABFB6F82ADDED8B00F8B211 /* ActualZFWSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActualZFWSelector.swift; sourceTree = "<group>"; };
+		DABFC1AD2B27B0EB00E5CCFD /* Aircraft.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Aircraft.csv; sourceTree = "<group>"; };
+		DABFC1AE2B27B0EB00E5CCFD /* Airports.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Airports.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +98,8 @@
 				DA8D4BB32AE187DF00E8A11D /* MeasurementTextField.swift */,
 				DA97EAD82AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift */,
 				DA97EADF2AF64B8900FB68D4 /* Storage.swift */,
-				DA97EAE32AF650D300FB68D4 /* Aircraft.csv */,
+				DABFC1AD2B27B0EB00E5CCFD /* Aircraft.csv */,
+				DABFC1AE2B27B0EB00E5CCFD /* Airports.csv */,
 				DA3496C22AD47E1500D406C2 /* Assets.xcassets */,
 				DA3496C42AD47E1500D406C2 /* Preview Content */,
 			);
@@ -180,7 +183,8 @@
 			files = (
 				DA3496C62AD47E1500D406C2 /* Preview Assets.xcassets in Resources */,
 				DA3496C32AD47E1500D406C2 /* Assets.xcassets in Resources */,
-				DA97EAE42AF650D300FB68D4 /* Aircraft.csv in Resources */,
+				DABFC1B02B27B0EB00E5CCFD /* Airports.csv in Resources */,
+				DABFC1AF2B27B0EB00E5CCFD /* Aircraft.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

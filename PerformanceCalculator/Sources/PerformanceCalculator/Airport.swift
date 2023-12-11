@@ -10,6 +10,13 @@ public struct Airport: Identifiable, Codable, Equatable {
     public var id: String {
         icao
     }
+    
+    public init(icao: String, name: String, elevation: Measurement<UnitLength>, runways: [Runway]) {
+        self.icao = icao
+        self.name = name
+        self.elevation = elevation
+        self.runways = runways
+    }
 }
 
 public struct Runway: Codable, Equatable, Hashable {

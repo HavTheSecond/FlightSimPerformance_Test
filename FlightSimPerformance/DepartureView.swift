@@ -4,6 +4,7 @@ import PerformanceCalculator
 struct DepartureView: View {
     @Bindable var calculator: Calculator
     @Environment(UserPreferences.self) var prefs
+    @Environment(Storage.self) var storage
     
     @State private var airportCode = "EDDF"
     @State private var airportFound = true
@@ -29,12 +30,16 @@ struct DepartureView: View {
         calculator.departureAirport
     }
     
-    func loadDeparureAirport() {
-        if airportCode == "EDDF" {
-            airportFound = true
-        } else {
-            airportFound = false
+    func loadDepartureAirport() {
+        var found = false
+        for airport in storage.airports {
+            if airport.icao == airportCode {
+                found = true
+                calculator.departureAirport = airport
+                break
+            }
         }
+        airportFound = found
     }
     
     var body: some View {
@@ -50,7 +55,7 @@ struct DepartureView: View {
                     .foregroundStyle(.secondary)
                     .onSubmit {
                         airportCode = airportCode.uppercased()
-                        loadDeparureAirport()
+                        loadDepartureAirport()
                     }
             }
             
@@ -63,6 +68,9 @@ struct DepartureView: View {
             }
         }
         .navigationTitle("Departure / Take-Off")
+        .onAppear {
+            loadDepartureAirport()
+        }
     }
     
     @ViewBuilder
