@@ -23,7 +23,7 @@
 		DA97EAE02AF64B8900FB68D4 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA97EADF2AF64B8900FB68D4 /* Storage.swift */; };
 		DABFB6F92ADDED8B00F8B211 /* ActualZFWSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABFB6F82ADDED8B00F8B211 /* ActualZFWSelector.swift */; };
 		DABFC1B02B27B0EB00E5CCFD /* Airports.csv in Resources */ = {isa = PBXBuildFile; fileRef = DABFC1AE2B27B0EB00E5CCFD /* Airports.csv */; };
-		DAF786462B35C10600FDE53C /* Aircraft.csv in Resources */ = {isa = PBXBuildFile; fileRef = DAF786452B35C10600FDE53C /* Aircraft.csv */; };
+		DAF786482B35C27300FDE53C /* Aircraft.csv in Resources */ = {isa = PBXBuildFile; fileRef = DAF786472B35C27300FDE53C /* Aircraft.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +43,7 @@
 		DA97EADF2AF64B8900FB68D4 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		DABFB6F82ADDED8B00F8B211 /* ActualZFWSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActualZFWSelector.swift; sourceTree = "<group>"; };
 		DABFC1AE2B27B0EB00E5CCFD /* Airports.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Airports.csv; sourceTree = "<group>"; };
-		DAF786452B35C10600FDE53C /* Aircraft.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Aircraft.csv; sourceTree = "<group>"; };
+		DAF786472B35C27300FDE53C /* Aircraft.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Aircraft.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +98,7 @@
 				DA8D4BB32AE187DF00E8A11D /* MeasurementTextField.swift */,
 				DA97EAD82AF56A3200FB68D4 /* TakeoffRunwayReducedLength.swift */,
 				DA97EADF2AF64B8900FB68D4 /* Storage.swift */,
-				DAF786452B35C10600FDE53C /* Aircraft.csv */,
+				DAF786472B35C27300FDE53C /* Aircraft.csv */,
 				DABFC1AE2B27B0EB00E5CCFD /* Airports.csv */,
 				DA3496C22AD47E1500D406C2 /* Assets.xcassets */,
 				DA3496C42AD47E1500D406C2 /* Preview Content */,
@@ -183,7 +183,7 @@
 			files = (
 				DA3496C62AD47E1500D406C2 /* Preview Assets.xcassets in Resources */,
 				DA3496C32AD47E1500D406C2 /* Assets.xcassets in Resources */,
-				DAF786462B35C10600FDE53C /* Aircraft.csv in Resources */,
+				DAF786482B35C27300FDE53C /* Aircraft.csv in Resources */,
 				DABFC1B02B27B0EB00E5CCFD /* Airports.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
