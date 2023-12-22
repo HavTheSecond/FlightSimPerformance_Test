@@ -26,7 +26,9 @@ struct TakeoffRunwayReducedLength: View {
             unitReset.toggle()
         }
         .onChange(of: departureRunway) { _, _ in
-            if takeoffRunwayLengthType == .reduced {
+            if takeoffRunwayLengthType == .normal {
+                return
+            } else if takeoffRunwayLengthType == .reduced {
                 takeoffRunwayReduceLength = min(calculator.departureRunwayLengthSubtraction, departureRunway.length)
                 calculator.departureRunwayLengthSubtraction = takeoffRunwayReduceLength
                 takeoffRunwayTrueLength = departureRunway.length - takeoffRunwayReduceLength

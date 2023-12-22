@@ -31,6 +31,8 @@ struct DepartureView: View {
     }
     
     func loadDepartureAirport() {
+        airportCode = airportCode.uppercased()
+        airportCode = airportCode.trimmingCharacters(in: .whitespacesAndNewlines)
         var found = false
         for airport in storage.airports {
             if airport.icao == airportCode {
@@ -51,10 +53,10 @@ struct DepartureView: View {
                 Spacer()
                 
                 TextField("Departure Airport", text: $airportCode)
+                    .autocorrectionDisabled()
                     .multilineTextAlignment(.trailing)
                     .foregroundStyle(.secondary)
                     .onSubmit {
-                        airportCode = airportCode.uppercased()
                         loadDepartureAirport()
                     }
             }
@@ -69,6 +71,7 @@ struct DepartureView: View {
         }
         .navigationTitle("Departure / Take-Off")
         .onAppear {
+            airportCode = calculator.departureAirport.icao
             loadDepartureAirport()
         }
     }
